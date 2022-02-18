@@ -5,7 +5,7 @@ pygame.init()
 pygame.font.init()
 
 class particle:
-  def __init__(self,x=0,y=0,xv=0,yv=0,mass=225,colour=(255,255,255),TBC=0,hasG=False):
+  def __init__(self,x=0,y=0,xv=0,yv=0,mass=225,colour=(255,255,255),TBC=0,hasG=False,state=-1):
     self.vel=[xv,yv]
     self.pos=[x,y]
     self.mass=mass
@@ -14,15 +14,24 @@ class particle:
     self.collided=0
     self.colour=colour
     self.TBC=TBC
-  
-  def update(self,w,h,g=0.02):
-    self.vel[1]+=g
+    self.state=state
+
+  def update(self,w,h,UPS):
+    g=0.5/UPS
+    if self.hasG:
+      self.vel[1]+=g
     if not 0+2*math.sqrt(self.mass)<=self.pos[0]+math.sqrt(self.mass)<=w:
       self.vel[0]=-self.vel[0]
     if not 0+2*math.sqrt(self.mass)<=self.pos[1]+math.sqrt(self.mass)<=h:
       self.vel[1]=-self.vel[1]
     self.pos[0]+=self.vel[0]
     self.pos[1]+=self.vel[1]
+    if self.state==0:
+      self.vel[0]*=(1-0.01/UPS)
+      self.vel[1]*=(1-0.01/UPS)
+    if self.state==1:
+      self.vel[0]*=(1+0.015/UPS)
+      self.vel[1]*=(1+0.015/UPS)
 
   def launch(self,ang,vel,pos):
     self.pos[0]=pos[0]
@@ -138,7 +147,7 @@ def main():
   cDelay=-1
   UPS=FPS*UPF
   PI=math.pi
-  bgCol=(0,0,50)
+  bgCol=(25,25,25)
   w=800
   h=450
   screen = pygame.display.set_mode((w, h))
@@ -169,15 +178,20 @@ def main():
             if a.collided+cDelay<uNum and b.collided+cDelay<uNum:
               if dist<a.size+b.size:
                 collide(a,b,uNum)
-        if a.hasG:
-          a.update(w,h,g=0.5/UPS)
-        else:
-          a.update(w,h,g=0)
+        a.update(w,h,UPS)
     if uNum%(10*UPS)==0:
+      for part in particles:
+        part.state=(part.state+1)%2
+        if part.state:
+          part.colour=(255,200,200)
+          bgCol=(50,25,25)
+        else:
+          part.colour=(200,200,255)
+          bgCol=(25,25,50)
       removeBad(particles,w,h)
     for part in particles:
       pygame.draw.circle(screen,part.colour,(int(part.pos[0]),int(part.pos[1])),int(math.sqrt(part.mass)))
-    screen.blit(font.render("E\u2096:"+str(getEk(particles)),False,(255,255,255)),(0,0))
+    screen.blit(font.render("E\u2096:"+str(round(getEk(particles))),False,(255,255,255)),(0,0))
     pygame.display.flip()
     clock = pygame.time.Clock()
     clock.tick(FPS)
