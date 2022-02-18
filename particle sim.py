@@ -65,10 +65,10 @@ def collide(a,b,uNum):
   a.collided=uNum
   b.collided=uNum
 
-def rGen(h,w,PI,UPS,g,vel=1500):
-  p=particle(xv=vel/UPS*(random()-0.5),yv=500/UPS*(random()-0.5),y=h*random(),x=w*random())
-  if not g:
-    p.hasG=False
+def rGen(h,w,PI,UPS,g,vel=750):
+  p=particle(xv=2*vel/UPS*(random()-0.5),yv=2*vel/UPS*(random()-0.5),y=h*random(),x=w*random())
+  if g:
+    p.hasG=True
   return p
   
 def rLaunch(h,PI):
