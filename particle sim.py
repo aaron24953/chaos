@@ -74,7 +74,7 @@ def collide(a,b,uNum):
   a.collided=uNum
   b.collided=uNum
 
-def rGen(h,w,PI,UPS,g,vel=750):
+def rGen(h,w,PI,UPS,g,vel=500):
   p=particle(xv=2*vel/UPS*(random()-0.5),yv=2*vel/UPS*(random()-0.5),y=h*random(),x=w*random(),mass=(random()**(1/2))*300)
   if g:
     p.hasG=True
