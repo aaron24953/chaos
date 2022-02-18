@@ -135,7 +135,7 @@ def main():
   FPS=60
   UPF=10
   uNum=0
-  cDelay=3
+  cDelay=0
   UPS=FPS*UPF
   PI=math.pi
   bgCol=(0,0,50)
