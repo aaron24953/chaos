@@ -27,11 +27,11 @@ class particle:
     self.pos[0]+=self.vel[0]
     self.pos[1]+=self.vel[1]
     if self.state==0:
-      self.vel[0]*=(1-0.04/UPS)
-      self.vel[1]*=(1-0.04/UPS)
+      self.vel[0]*=(1-0.08/UPS)
+      self.vel[1]*=(1-0.08/UPS)
     if self.state==1:
-      self.vel[0]*=(1+0.048/UPS)
-      self.vel[1]*=(1+0.048/UPS)
+      self.vel[0]*=(1+0.096/UPS)
+      self.vel[1]*=(1+0.096/UPS)
 
   def launch(self,ang,vel,pos):
     self.pos[0]=pos[0]
