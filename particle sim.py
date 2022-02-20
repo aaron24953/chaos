@@ -179,7 +179,7 @@ def main():
               if dist<a.size+b.size:
                 collide(a,b,uNum)
         a.update(w,h,UPS)
-    if uNum%(10*UPS)==0:
+    if uNum%(20*UPS)==0:
       for part in particles:
         part.state=(part.state+1)%2
         if part.state:
