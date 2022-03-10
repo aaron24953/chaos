@@ -18,7 +18,10 @@ def calc(toCheck,operand,i):
     if operand=="*":
         value=a*b
     elif operand=="/":
-        value=a//b
+        if a//b==a/b:
+            value=a//b
+        else:
+            return "no"
     elif operand=="+":
         value=a+b
     else:
@@ -76,9 +79,8 @@ def checkValidNerdle(toCheck):
     return checkCalc("".join(toCheck))
                 
 def main():
-    question="75*=34-8"
+    question="89/=-564"
     known=[-1 for i in range(8)]
-    known[5]=4
     question=[i for i in question]
     perms=permute(question)
     ans="no ans"
