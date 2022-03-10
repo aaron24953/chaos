@@ -2,22 +2,15 @@ from factorial import factorial as fact
 def permute(array):
     print(array)
     leng=len(array)
-    facts=[fact(i) for i in range(leng)]
+    facts=[fact(leng-i) for i in range(leng+1)]
     perms=[]
-    print(leng**leng)
-    for i in range(leng**leng):
-        pPerm=[]
-        valid=True
-        indexes=[]
+    print(facts[0])
+    for i in range(facts[0]):
+        perm=[]
+        indexes=[j for j in range(leng)]
         for j in range(leng):
-            index=i//(leng**j)%leng
-            add=array[index]
-            if not index in indexes:
-                indexes.append(index)
-                pPerm.append(add)
-            else:
-                valid=False
-                break
-        if valid:
-            perms.append(pPerm)
+            index=(i//facts[j+1])%(leng-j)
+            perm.append(array[indexes[index]])
+            indexes.remove(indexes[index])
+        perms.append(perm)
     return perms

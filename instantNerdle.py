@@ -76,12 +76,23 @@ def checkValidNerdle(toCheck):
     return checkCalc("".join(toCheck))
                 
 def main():
-    stuff="75*=34-8"
-    stuff=[i for i in stuff]
-    perms=permute(stuff)
+    question="75*=34-8"
+    known=[-1 for i in range(8)]
+    known[5]=4
+    question=[i for i in question]
+    perms=permute(question)
+    ans="no ans"
     for i in perms:
         if checkValidNerdle(i):
-            print("".join(i))
+            pAns="".join(i)
+            isAns=True
+            for j in range(len(pAns)):
+                if pAns[j]!=str(known[j]) and known[j]!=-1:
+                    isAns=False
+            if isAns:
+                ans=pAns
+            print(pAns)
+    print(ans,"is ans")
         
 if __name__ == "__main__":
     main()
