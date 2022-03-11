@@ -6,22 +6,37 @@ def calc(toCheck,operand,i):
     try:
         if i-2>=0:
             a+=10*int(toCheck[i-2])
+        try:
+            if i-3>=0:
+                a+=100*int(toCheck[i-3])
+        except:
+            pass
     except:
         pass
     b=int(toCheck[i+1])
     try:
         b=10*int(toCheck[i+1])
         b+=int(toCheck[i+2])
+        try:
+            b=100*int(toCheck[i+1])
+            b=10*int(toCheck[i+2])
+            b+=int(toCheck[i+3])
+        except:
+            b=10*int(toCheck[i+1])
+            b+=int(toCheck[i+2])    
     except:
         b=int(toCheck[i+1])
     #print(a,toCheck,b)
     if operand=="*":
         value=a*b
     elif operand=="/":
-        if a//b==a/b:
-            value=a//b
-        else:
-            return "no"
+        try:
+            if a//b==a/b:
+                value=a//b
+            else:
+                return "False"
+        except:
+            return "False"
     elif operand=="+":
         value=a+b
     else:
@@ -55,6 +70,7 @@ def checkCalc(toCheck):
     return False
 
 def checkValidNerdle(toCheck):
+    #print(toCheck)
     eq=0
     for i in toCheck:
         if i!="=":
@@ -79,8 +95,9 @@ def checkValidNerdle(toCheck):
     return checkCalc("".join(toCheck))
                 
 def main():
-    question="89/=-564"
     known=[-1 for i in range(8)]
+    question="62=+9/71"
+    known[0]=6
     question=[i for i in question]
     perms=permute(question)
     ans="no ans"
