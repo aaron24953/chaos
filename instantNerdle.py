@@ -1,4 +1,11 @@
+from email.mime import image
+import cv2
+from time import sleep
+import pytesseract
+from PIL import ImageGrab,Image
+from numpy import asarray
 from permutations import permute
+import keyboard
 
 def calc(toCheck,operand,i):
     temp=toCheck
@@ -9,6 +16,11 @@ def calc(toCheck,operand,i):
         try:
             if i-3>=0:
                 a+=100*int(toCheck[i-3])
+            try:
+                if i-4>=0:
+                    a+=1000*int(toCheck[i-4])
+            except:
+                pass
         except:
             pass
     except:
@@ -19,8 +31,17 @@ def calc(toCheck,operand,i):
         b+=int(toCheck[i+2])
         try:
             b=100*int(toCheck[i+1])
-            b=10*int(toCheck[i+2])
+            b+=10*int(toCheck[i+2])
             b+=int(toCheck[i+3])
+            try:
+                b=1000*int(toCheck[i+1])
+                b+=100*int(toCheck[i+2])
+                b+=10*int(toCheck[i+3])
+                b+=1*int(toCheck[i+3])
+            except:
+                b=100*int(toCheck[i+1])
+                b+=10*int(toCheck[i+2])
+                b+=int(toCheck[i+3])
         except:
             b=10*int(toCheck[i+1])
             b+=int(toCheck[i+2])    
@@ -77,7 +98,7 @@ def checkValidNerdle(toCheck):
             eq+=1
         else:
             break
-    if eq<len(toCheck)-3 or eq==len(toCheck)-1:
+    if eq<len(toCheck)-4 or eq==len(toCheck)-1:
         return False
     symbol=0
     symbols=[]
@@ -94,10 +115,54 @@ def checkValidNerdle(toCheck):
         pp=point
     return checkCalc("".join(toCheck))
                 
+def getNerdle():
+    pytesseract.pytesseract.tesseract_cmd=r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+    #sleep(0.3)
+    img=ImageGrab.grab(bbox=(90,330,1300,470))
+    img.save("temp.png")
+    img=cv2.imread("temp.png")
+    gimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    ret, gimg = cv2.threshold(gimg, 200, 255, cv2.THRESH_BINARY)
+    #cv2.imwrite("gimg.png",gimg)
+    raw=pytesseract.image_to_string(gimg,config="--psm 7")
+    raw=raw.split()
+    print(raw)
+    nerdle=""
+    for char in raw:
+        if char=="|":
+            char="1"
+        if char=="r4":
+            char="2"
+        nerdle+=char
+    print(nerdle)
+    return nerdle
+
+def checkKnown(index):
+    img=Image.open("temp.png")
+    img=img.load()
+    colour=img[70+150*index,120]
+    if colour==(130,4,88):
+        return False
+    else:
+        return True
+
+def getKnown(nerdle):
+    known=[]
+    antiKnown=[]
+    for i in range(8):
+        if checkKnown(i):
+            known.append(nerdle[i])
+            antiKnown.append(-1)
+        else:
+            antiKnown.append(nerdle[i])
+            known.append(-1)
+    return known,antiKnown
+
 def main():
-    known=[-1 for i in range(8)]
-    question="62=+9/71"
-    known[0]=6
+    keyboard.press_and_release("alt+tab")
+    sleep(0.1)
+    question=getNerdle()
+    known,antiKnown=getKnown(question)
     question=[i for i in question]
     perms=permute(question)
     ans="no ans"
@@ -106,12 +171,16 @@ def main():
             pAns="".join(i)
             isAns=True
             for j in range(len(pAns)):
-                if pAns[j]!=str(known[j]) and known[j]!=-1:
+                if (pAns[j]!=str(known[j]) and known[j]!=-1) or pAns[j]==str(antiKnown[j]):
                     isAns=False
             if isAns:
                 ans=pAns
             print(pAns)
     print(ans,"is ans")
+    for digit in ans:
+        keyboard.press_and_release(digit)
+    keyboard.press_and_release("\n")
+    keyboard.press_and_release("\n")
         
 if __name__ == "__main__":
     main()

@@ -2,12 +2,12 @@ import instantNerdle as iN
 import permutations as p
 outed=[]
 
-def outIfValid(check,known):
+def outIfValid(check,known,antiKnown):
     global q
     if iN.checkValidNerdle(check):
         notAns=False
         for i in range(len(check)):
-            if str(check[i])!=str(known[i]) and known[i]!=-1:
+            if (str(check[i])!=str(known[i]) and known[i]!=-1) or str(check[i])==str(antiKnown[i]):
                 notAns=True
         if not notAns:
             if not "".join(check) in outed and len(q)==len(check):
@@ -22,13 +22,20 @@ def main():
     lookingForAns=True
     foundValid=False
     #q=input("so far?")
-    q="4*1=826/"
+    q="3-2156*="
     #0,1,2,3,4,5,6,7,8,9,
-    valid=[1,2,4,6,8,9,"/","*","+"]
+    valid=[1,2,7,8,9,"*","/"]
+    antiKnown=[-1 for i in range(8)]
+    #antiKnown[0]=2
+    #antiKnown[3]=4
+    #antiKnown[4]=8
+    #antiKnown[5]="="
     known=[-1 for i in range(8)]
-    known[1]="*"
-    known[4]=1
-    #known[5]="="
+    #known[0]=4
+    #known[1]="*"
+    #known[2]=9
+    #known[4]="="
+    known[5]=5
     #known[6]=5
     #known[7]=7
     perms=p.permute(q)
@@ -42,10 +49,10 @@ def main():
             out=iterateRandoms("".join(stuff),valid)
             for check in out:
                     check = [digit for digit in check]
-                    if outIfValid(check,known):
+                    if outIfValid(check,known,antiKnown):
                         foundValid=True
         else:
-            if outIfValid(stuff,known):
+            if outIfValid(stuff,known,antiKnown):
                 foundValid=True
         if foundValid and lookingForAns:
             break
