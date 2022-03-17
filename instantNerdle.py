@@ -1,4 +1,3 @@
-from email.mime import image
 import cv2
 from time import sleep
 import pytesseract
@@ -52,16 +51,16 @@ def calc(toCheck,operand,i):
         value=a*b
     elif operand=="/":
         try:
-            if a//b==a/b:
-                value=a//b
-            else:
-                return "False"
+            value=a//b
         except:
             return "False"
     elif operand=="+":
         value=a+b
     else:
-        value=a-b
+        if a-b>0:
+            value=a-b
+        else:
+            value=99999999
     toCheck="".join([temp[j] for j in range(0,i-len(str(a)))])
     toCheck+=str(value)
     toCheck+="".join([temp[j] for j in range(i+len(str(b))+1,len(temp))])
@@ -71,19 +70,19 @@ def checkCalc(toCheck):
     bothSides=toCheck.split("=")
     toCheck=bothSides[0]
     for i in range(len(toCheck)):
-        if toCheck[i] == "*":
-            toCheck=calc(toCheck,toCheck[i],i)
-            break
-    for i in range(len(toCheck)):
         if toCheck[i] == "/":
             toCheck=calc(toCheck,toCheck[i],i)
             break
     for i in range(len(toCheck)):
-        if toCheck[i] == "+":
+        if toCheck[i] == "*":
             toCheck=calc(toCheck,toCheck[i],i)
             break
     for i in range(len(toCheck)):
         if toCheck[i] == "-":
+            toCheck=calc(toCheck,toCheck[i],i)
+            break
+    for i in range(len(toCheck)):
+        if toCheck[i] == "+":
             toCheck=calc(toCheck,toCheck[i],i)
             break
     if toCheck==bothSides[1]:
@@ -163,6 +162,7 @@ def main():
     sleep(0.1)
     question=getNerdle()
     known,antiKnown=getKnown(question)
+    print(known,antiKnown)
     question=[i for i in question]
     perms=permute(question)
     ans="no ans"
@@ -179,6 +179,7 @@ def main():
     print(ans,"is ans")
     for digit in ans:
         keyboard.press_and_release(digit)
+        #sleep(0.1)
     keyboard.press_and_release("\n")
     keyboard.press_and_release("\n")
         
