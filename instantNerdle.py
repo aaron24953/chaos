@@ -132,6 +132,8 @@ def getNerdle():
             char="1"
         if char=="r4":
             char="2"
+        if char=="y4":
+            char="2"
         nerdle+=char
     print(nerdle)
     return nerdle
