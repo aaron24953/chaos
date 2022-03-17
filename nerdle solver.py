@@ -39,6 +39,12 @@ def getLine(lineNo):
     for char in raw:
         if char=="7?":
             char="7"
+        if char=="a":
+            char="/"
+        if char=="41":
+            char="1"
+        if char=="E)":
+            char="9"
         line.append(char)
     lineInfo=[]
     img=Image.open("temp.png")
@@ -75,7 +81,10 @@ def getStuff():
                     lKnown.append(line[j])
                     lAntiKnown.append(-1)
                 else:
-                    valid.remove(line[j])
+                    if line[j] in valid:
+                        valid.remove(line[j])
+                    else:
+                        print(line[j],"was not in valid")
                     lAntiKnown.append(-1)
                     lKnown.append(-1)
             for j in range(8):
@@ -110,7 +119,7 @@ def main():
     keyType("48/6+1=9")
     sleep(0.1)
     keyboard.press_and_release("enter")
-    keyType("2*5-07=3")
+    keyType("2*5-7=03")
     sleep(0.1)
     keyboard.press_and_release("enter")
     sleep(0.1)

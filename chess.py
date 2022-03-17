@@ -237,6 +237,8 @@ class bishop:
             if type(board.spaces[i*7+start])!=type("string"):
               return False
         return True
+    def pMoves(self,start,board):
+        pass
 
 class rook:
   def __init__(self,colour):
