@@ -31,10 +31,11 @@ def getLine(lineNo):
     img.save("temp.png")
     img=cv2.imread("temp.png")
     gimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    ret, gimg = cv2.threshold(gimg, 200, 255, cv2.THRESH_BINARY)
+    ret, gimg = cv2.threshold(gimg, 195, 255, cv2.THRESH_BINARY_INV)#THRESH_TOZERO
     cv2.imwrite("gimg.png",gimg)
     raw=pytesseract.image_to_string(gimg,config="--psm 7")
     raw=raw.split()
+    #print(raw)
     line=[]
     for char in raw:
         if char=="7?":
@@ -45,17 +46,25 @@ def getLine(lineNo):
             char="1"
         if char=="E)":
             char="9"
+        if char=="A":
+            char="6"
+        if char=="ee":
+            char="+"
+        if char=="|":
+            char="1"
+        if char=="te)":
+            char="0"
         line.append(char)
     lineInfo=[]
     img=Image.open("temp.png")
     img=img.load()
     for i in range(8):
-        colour=img[27+60*i,5]
+        colour=img[27+60*i,10]
         if colour==(130,4,88):
             lineInfo.append(1)
         elif colour==(57,136,116):
             lineInfo.append(2)
-        elif colour==(22,24,3):
+        else:#(22,24,3)
             lineInfo.append(0)
     return line, lineInfo
 
