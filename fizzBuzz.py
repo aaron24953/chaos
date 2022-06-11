@@ -1,6 +1,6 @@
 MAX=100
-numbers=[2,3,5,7,11,13]
-words=["Fizz","Buzz","Bizz","Bozz","Boom","Fuzz"]
+numbers=[2,3,5,7,11,13,17]
+words=["Fizz","Buzz","Bizz","Bozz","Boom","Fuzz","Fozz"]
 if len(numbers)>len(words):
     print("you need more words")
 elif len(numbers)<len(words):
