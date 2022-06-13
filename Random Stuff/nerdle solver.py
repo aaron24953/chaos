@@ -27,15 +27,15 @@ def outIfValid(check,known,antiKnown):
 def getLine(lineNo):
     pytesseract.pytesseract.tesseract_cmd=r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
     #sleep(0.3)
-    img=ImageGrab.grab(bbox=(458,165+55*lineNo,933,215+55*lineNo))
+    screenx=1920
+    img=ImageGrab.grab(bbox=(screenx*51//100-240,165+55*lineNo,screenx*51//100+240,215+55*lineNo))
     img.save("temp.png")
     img=cv2.imread("temp.png")
     gimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    ret, gimg = cv2.threshold(gimg, 195, 255, cv2.THRESH_BINARY_INV)#THRESH_TOZERO
+    ret, gimg = cv2.threshold(gimg, 140, 255, cv2.THRESH_BINARY)
     cv2.imwrite("gimg.png",gimg)
     raw=pytesseract.image_to_string(gimg,config="--psm 7")
     raw=raw.split()
-    #print(raw)
     line=[]
     for char in raw:
         if char=="7?":
@@ -46,25 +46,22 @@ def getLine(lineNo):
             char="1"
         if char=="E)":
             char="9"
-        if char=="A":
-            char="6"
-        if char=="ee":
-            char="+"
-        if char=="|":
-            char="1"
-        if char=="te)":
-            char="0"
+        if char=="r4":
+            char="2"
+        if char=="ar)":
+            char="9"
+            line.append("=")
         line.append(char)
     lineInfo=[]
     img=Image.open("temp.png")
     img=img.load()
     for i in range(8):
-        colour=img[27+60*i,10]
+        colour=img[27+60*i,5]
         if colour==(130,4,88):
             lineInfo.append(1)
         elif colour==(57,136,116):
             lineInfo.append(2)
-        else:#(22,24,3)
+        elif colour==(22,24,3):
             lineInfo.append(0)
     return line, lineInfo
 
@@ -117,21 +114,18 @@ def getDigits(known,antiKnown):
 
 def keyType(text):
     for char in text:
-        keyboard.press_and_release(char)
         sleep(0.1)
+        keyboard.press_and_release(char)
+    sleep(0.1)
 
 #458,165,933,215,+60y for next line(55x55 squares+5 spacing)
 def main():
     global q
     keyboard.press_and_release("alt+tab")
-    sleep(0.1)
     keyType("48/6+1=9")
-    sleep(0.1)
     keyboard.press_and_release("enter")
     keyType("2*5-7=03")
-    sleep(0.1)
     keyboard.press_and_release("enter")
-    sleep(0.1)
     complete=False
     while not complete:
         known,antiKnown,valid=getStuff()
