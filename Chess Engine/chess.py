@@ -6,6 +6,7 @@ GUI = True
 WIDTH = 640
 HEIGHT = 640
 SIZE = 80
+PLAYER = [True, False]  # true for human
 
 pygame.init()
 
@@ -480,7 +481,7 @@ def main() -> None:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.type == pygame.MOUSEBUTTONDOWN and PLAYER[gBoard.turn % 2]:
                     mousePos = pygame.mouse.get_pos()
                     if selected == -1:
                         selected = (
@@ -532,6 +533,7 @@ def main() -> None:
                 gBoard.undo()
             else:
                 gBoard.move(input_[0], input_[1])
+
 
 if __name__ == "__main__":
     main()
