@@ -1,10 +1,15 @@
 import chess
 
 
-def AI(board: chess.Board):
-    AI(board)
+def generate_AI_move(board: chess.Board):
+    return (8, 8)
 
 
-board = chess.Board()
-board.startPos()
-AI(board)
+def main():
+    board = chess.Board()
+    board.startPos()
+    print(generate_AI_move(board))
+
+
+if __name__ == "__main__":
+    main()

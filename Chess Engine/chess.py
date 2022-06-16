@@ -469,6 +469,7 @@ def text_input() -> tuple[int, int]:
 
 
 def main() -> None:
+    from chessAI import generate_AI_move
     gBoard = Board()
     # gBoard.startPos()
     gBoard.load_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w")
@@ -481,7 +482,10 @@ def main() -> None:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN and PLAYER[gBoard.turn % 2]:
+                elif (
+                    event.type == pygame.MOUSEBUTTONDOWN
+                    and PLAYER[gBoard.turn % 2]
+                ):
                     mousePos = pygame.mouse.get_pos()
                     if selected == -1:
                         selected = (
@@ -489,7 +493,7 @@ def main() -> None:
                                 mousePos[1] // SIZE
                             )
                         )
-                    else:
+                    elif PLAYER[gBoard.turn % 2]:
                         end = (
                             mousePos[0] // SIZE + 56 - 8 * (
                                 mousePos[1] // SIZE
@@ -497,6 +501,8 @@ def main() -> None:
                         )
                         gBoard.move(selected, end-selected)
                         selected = -1
+                    else:
+                        gboard.move(generate_AI_move(gBoard))
             for i in range(64):
                 if i == selected:
                     pygame.draw.rect(
