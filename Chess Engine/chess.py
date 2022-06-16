@@ -1,3 +1,4 @@
+import random
 from typing import List, Tuple, Union
 from singleton import Singleton
 import pygame
@@ -7,6 +8,7 @@ WIDTH = 640
 HEIGHT = 640
 SIZE = 80
 PLAYER = [True, False]  # true for human
+PAIN = True
 
 pygame.init()
 
@@ -524,11 +526,18 @@ def main() -> None:
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
                 if gBoard.spaces[i] != Space():
-                    sprite = pygame.image.load(
-                        'Chess Engine/'
-                        f'{gBoard.spaces[i].symbol}'
-                        f'{gBoard.spaces[i].colour}.png'
-                    )
+                    if not PAIN:
+                        sprite = pygame.image.load(
+                            'Chess Engine/'
+                            f'{gBoard.spaces[i].symbol}'
+                            f'{gBoard.spaces[i].colour}.png'
+                        )
+                    else:
+                        sprite = pygame.image.load(
+                            'Chess Engine/'
+                            f'{random.choice(["k", "q", "n", "b", "r", "p"])}'
+                            f'{random.randint(0,1)}.png'
+                        )
                     screen.blit(sprite, (i % 8 * SIZE, (7 - i//8) * SIZE))
 
             pygame.display.flip()
