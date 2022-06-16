@@ -502,7 +502,8 @@ def main() -> None:
                         gBoard.move(selected, end-selected)
                         selected = -1
                     else:
-                        gboard.move(generate_AI_move(gBoard))
+                        AIMove = generate_AI_move(gBoard)
+                        gBoard.move(AIMove[0], AIMove[1])
             for i in range(64):
                 if i == selected:
                     pygame.draw.rect(
