@@ -1,4 +1,13 @@
-from typing import List, Union
+from typing import List, Tuple, Union
+from singleton import Singleton
+import pygame
+
+GUI = True
+WIDTH = 640
+HEIGHT = 640
+SIZE = 80
+
+pygame.init()
 
 
 class Board:
@@ -9,10 +18,19 @@ class Board:
                                 Bishop,
                                 Rook,
                                 Queen,
-                                King
+                                King,
                                 ]] = [Space(i) for i in range(64)]
         self.turn: int = 0
         self.kingPositions: List[int] = [-1, -1]
+        self.history: List[Tuple[int, int, Union[
+            Space,
+            Pawn,
+            Knight,
+            Bishop,
+            Rook,
+            Queen,
+            King,
+            ]]] = []
 
     def move(self, start: int, move: int) -> int:
         end = start + move
@@ -23,17 +41,19 @@ class Board:
         if self.spaces[start] == Space():
             print("thats a space")
             return 0
-        if self.spaces[start].colour != self.turn:
+        if self.spaces[start].colour != self.turn % 2:
             return 0
         val: int = self.spaces[start].validate_move(start, move, self)
-        if val or val == -1:
+        if val:
+            replaced = self.spaces[end]
             self.spaces[end] = self.spaces[start]
             self.spaces[start] = Space()
-            if val == 1:
+            if val == 2:
                 self.spaces[end - 8] = Space()
-            elif val == -1:
+            elif val == 3:
                 self.spaces[end + 8] = Space()
             self.turn += 1
+            self.history.append((start, end, replaced))
         return 1
 
     def load_FEN(self, fen: str) -> None:
@@ -137,8 +157,13 @@ class Board:
                                 return True
         return False
 
+    def undo(self):
+        start, end, replaced = self.history.pop()
+        self.spaces[start] = self.spaces[end]
+        self.spaces[end] = replaced
 
-class Space:
+
+class Space(Singleton):
     def __init__(self, *args: int):
         self.args = args
         self.symbol = " "
@@ -171,13 +196,12 @@ class Pawn:
                     self.jumped = board.turn
                     self.jump = False
                     return 1
-            if end - 8 >= 0:
-                if isinstance(board.spaces[end - 8], Pawn):
-                    if board.spaces[end - 8].jumped == board.turn - 1:
-                        if ((move == 7 and start % 8 != 0) or (
-                                move == 9 and start % 8 != 7)):
-                            return 1
-            elif ((
+            if isinstance(board.spaces[end - 8], Pawn):
+                if board.spaces[end - 8].jumped == board.turn - 1:
+                    if ((move == 7 and start % 8 != 0) or (
+                            move == 9 and start % 8 != 7)):
+                        return 2
+            if ((
                     (move == 7 and start % 8 != 0)
                     or (move == 9 and start % 8 != 7)
                 )
@@ -196,16 +220,15 @@ class Pawn:
                     self.jumped = board.turn
                     self.jump = False
                     return 1
-            if end + 8 < 64:
-                if isinstance(board.spaces[end + 8], Pawn):
-                    if board.spaces[end + 8].jumped == board.turn - 1:
-                        if ((move == -
-                             7 and start %
-                             8 != 7) or (move == -
-                                         9 and start %
-                                         8 != 0)):
-                            return -1
-            elif ((
+            if isinstance(board.spaces[end + 8], Pawn):
+                if board.spaces[end + 8].jumped == board.turn - 1:
+                    if ((move == -
+                            7 and start %
+                            8 != 7) or (move == -
+                                        9 and start %
+                                        8 != 0)):
+                        return 3
+            if ((
                     (move == -7 and start % 8 != 7)
                     or (move == -9 and start % 8 != 0))
                     and not isinstance(board.spaces[end], Space)):
@@ -300,38 +323,44 @@ class Bishop:
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
+        print(start, move, end)
         if not isinstance(board.spaces[end], Space):
             if board.spaces[end].colour == self.colour:
                 return 0
-        if (move %
-            9 == 0 and abs(move) == move) or (move %
-                                              7 == 0 and abs(move) != move):
-            if end % 8 > start % 8:
-                for i in range(1, abs(move // 8)):
-                    if move == 9:
-                        if not isinstance(
-                                board.spaces[i * 9 + start], Space):
-                            return 0
-                    else:
-                        if not isinstance(
-                                board.spaces[i * -7 + start], Space):
-                            return 0
-                return 1
-        if (move %
-            9 == 0 and abs(move) != move) or (move %
-                                              7 == 0 and abs(move) == move):
-            if end % 8 < start % 8:
-                for i in range(1, abs(move // 8 + 1)):
-                    if move == 9:
-                        if not isinstance(
-                                board.spaces[i * -9 + start], Space):
-                            return 0
-                    else:
-                        if not isinstance(
-                                board.spaces[i * 7 + start], Space):
-                            return 0
-                return 1
-        return 0
+        moves = [-9, -7, 7, 9]
+        if move in moves:
+            return 1
+        else:
+            if move % 7 and move % 9:
+                return 0
+            if move % 7 == 0 and move > 0:
+                if end % 8 > start % 8:
+                    return 0
+                for i in range(move // 7):
+                    if board.spaces[start + 7 + i * 7] != Space():
+                        return 0
+            elif move % 9 == 0 and move > 0:
+                if end % 8 < start % 8:
+                    return 0
+                for i in range(move // 9):
+                    if board.spaces[start + 9 + i * 9] != Space():
+                        return 0
+            elif move % 9 == 0 and move < 0:
+                if end % 8 > start % 8:
+                    return 0
+                for i in range(abs(move // 9)):
+                    if board.spaces[start - 9 - i * 9] != Space():
+                        return 0
+            elif move % 7 == 0 and move < 0:
+                if end % 8 < start % 8:
+                    return 0
+                for i in range(abs(move // 7)):
+                    if board.spaces[start - 7 - i * 7] != Space():
+                        return 0
+            else:
+                print("pain")
+                return 0
+        return 1
 
     def possible_moves(self, start: int, board: Board) -> List[int]:
         possibleMoves: List[int] = []
@@ -399,9 +428,6 @@ class Queen:
         self.jumped = -1
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
-        """
-        type ignores can be fixed with a parse
-        """
         return Rook.validate_move(
             self, start, move, board) or Bishop.validate_move(  # type: ignore
             self, start, move, board)  # type: ignore
@@ -445,11 +471,69 @@ def main() -> None:
     gBoard = Board()
     # gBoard.startPos()
     gBoard.load_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w")
-    while True:
-        gBoard.text_display()
-        inp = text_input()
-        gBoard.move(inp[0], inp[1])
+    running = True
+    if GUI:
+        screen = pygame.display.set_mode([HEIGHT, WIDTH])
+        pygame.display.set_caption("Chess")
+        selected = -1
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mousePos = pygame.mouse.get_pos()
+                    if selected == -1:
+                        selected = (
+                            mousePos[0] // SIZE + 56 - 8 * (
+                                mousePos[1] // SIZE
+                            )
+                        )
+                    else:
+                        end = (
+                            mousePos[0] // SIZE + 56 - 8 * (
+                                mousePos[1] // SIZE
+                            )
+                        )
+                        gBoard.move(selected, end-selected)
+                        selected = -1
+            for i in range(64):
+                if i == selected:
+                    pygame.draw.rect(
+                        screen,
+                        (0, 0, 255),
+                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                    )
+                elif (i + i // 8) % 2:
+                    pygame.draw.rect(
+                        screen,
+                        (255, 0, 255),
+                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                    )
+                else:
+                    pygame.draw.rect(
+                        screen,
+                        (255, 0, 150),
+                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                    )
+                if gBoard.spaces[i] != Space():
+                    sprite = pygame.image.load(
+                        'Chess Engine/'
+                        f'{gBoard.spaces[i].symbol}'
+                        f'{gBoard.spaces[i].colour}.png'
+                    )
+                    screen.blit(sprite, (i % 8 * SIZE, (7 - i//8) * SIZE))
 
+            pygame.display.flip()
+    else:
+        while running:
+            gBoard.text_display()
+            input_ = text_input()
+            if input_[0] == -1:
+                gBoard.undo()
+            else:
+                gBoard.move(input_[0], input_[1])
 
 if __name__ == "__main__":
     main()
+
+pygame.quit()
