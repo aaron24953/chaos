@@ -8,7 +8,7 @@ WIDTH = 640
 HEIGHT = 640
 SIZE = 80
 PLAYER = [True, False]  # true for human
-PAIN = True
+PAIN = False
 
 pygame.init()
 
@@ -165,6 +165,13 @@ class Board:
         self.spaces[start] = self.spaces[end]
         self.spaces[end] = replaced
 
+    def all_moves(self) -> List[List[int]]:
+        allMoves: List[List[int]] = []
+        allMoves = [
+            self.spaces[i].possible_moves(i, self) for i in range(64)
+        ]
+        return allMoves
+
 
 class Space(Singleton):
     def __init__(self, *args: int):
@@ -175,6 +182,9 @@ class Space(Singleton):
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         return -1
+
+    def possible_moves(self, start: int, board: Board) -> List[int]:
+        return []
 
 
 class Pawn:
@@ -223,13 +233,14 @@ class Pawn:
                     self.jumped = board.turn
                     self.jump = False
                     return 1
-            if isinstance(board.spaces[end + 8], Pawn):
-                if board.spaces[end + 8].jumped == board.turn - 1:
-                    if ((move == -
-                            7 and start %
-                            8 != 7) or (move == -
-                                        9 and start %
-                                        8 != 0)):
+
+            if ((move == -
+                    7 and start %
+                    8 != 7) or (move == -
+                                9 and start %
+                                8 != 0)):
+                if isinstance(board.spaces[end + 8], Pawn):
+                    if board.spaces[end + 8].jumped == board.turn - 1:
                         return 3
             if ((
                     (move == -7 and start % 8 != 7)
@@ -246,8 +257,8 @@ class Pawn:
         if not self.colour:
             if isinstance(board.spaces[start + 8], Space):
                 possibleMoves.append(8)
-            if isinstance(board.spaces[start + 16], Space):
-                if self.jump:
+            if self.jump:
+                if isinstance(board.spaces[start + 16], Space):
                     possibleMoves.append(16)
             for move in [7, 9]:
                 if ((move == 7 and start % 8 != 0) or (
@@ -264,11 +275,11 @@ class Pawn:
                                             8].jumped == board.turn:
                                 possibleMoves.append(move)
         else:
-            if isinstance(board.spaces[start + 8], Space):
-                possibleMoves.append(8)
-            if isinstance(board.spaces[start + 16], Space):
-                if self.jump:
-                    possibleMoves.append(16)
+            if isinstance(board.spaces[start - 8], Space):
+                possibleMoves.append(-8)
+            if self.jump:
+                if isinstance(board.spaces[start - 16], Space):
+                    possibleMoves.append(-16)
             for move in [-7, -9]:
                 if ((move == -
                      9 and start %
@@ -298,6 +309,8 @@ class Knight:
     def validate_move(self, start: int, move: int, board: Board) -> int:
         # 17,15,10,6
         end = start + move
+        if not 0 <= end < 64:
+            return 0
         if not isinstance(board.spaces[end], Space):
             if board.spaces[end].colour == self.colour:
                 return 0
@@ -326,7 +339,8 @@ class Bishop:
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
-        print(start, move, end)
+        if not 0 <= end < 64:
+            return 0
         if not isinstance(board.spaces[end], Space):
             if board.spaces[end].colour == self.colour:
                 return 0
@@ -383,6 +397,8 @@ class Rook:
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
+        if not 0 <= end < 64:
+            return 0
         if not isinstance(board.spaces[end], Space):
             if board.spaces[end].colour == self.colour:
                 return 0
@@ -397,7 +413,7 @@ class Rook:
                 ):
                     return 0
             return 1
-        if move < 8:
+        if 0 < move < 8:
             if move == abs(move):
                 if move % 8 < end % 8:
                     for i in range(1, move):
@@ -451,7 +467,11 @@ class King:
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
+        if not 0 <= end < 64:
+            return 0
         if move not in [-9, -8, -7, -1, 1, 7, 8, 9]:
+            return 0
+        if self.colour == board.spaces[end].colour:
             return 0
         if move in [-9, -1, 7]:
             if end % 8 == start % 8 - 1:
@@ -462,6 +482,13 @@ class King:
         else:
             return 1
         return 0
+
+    def possible_moves(self, start: int, board: Board) -> List[int]:
+        moves: List[int] = []
+        for move in [-9, -8, -7, -1, 1, 7, 8, 9]:
+            if self.validate_move(start, move, board):
+                moves.append(move)
+        return moves
 
 
 def text_input() -> tuple[int, int]:
@@ -486,26 +513,26 @@ def main() -> None:
                     running = False
                 elif (
                     event.type == pygame.MOUSEBUTTONDOWN
-                    and PLAYER[gBoard.turn % 2]
                 ):
-                    mousePos = pygame.mouse.get_pos()
-                    if selected == -1:
-                        selected = (
-                            mousePos[0] // SIZE + 56 - 8 * (
-                                mousePos[1] // SIZE
+                    if PLAYER[gBoard.turn % 2]:
+                        mousePos = pygame.mouse.get_pos()
+                        if selected == -1:
+                            selected = (
+                                mousePos[0] // SIZE + 56 - 8 * (
+                                    mousePos[1] // SIZE
+                                )
                             )
-                        )
-                    elif PLAYER[gBoard.turn % 2]:
-                        end = (
-                            mousePos[0] // SIZE + 56 - 8 * (
-                                mousePos[1] // SIZE
+                        else:
+                            end = (
+                                mousePos[0] // SIZE + 56 - 8 * (
+                                    mousePos[1] // SIZE
+                                )
                             )
-                        )
-                        gBoard.move(selected, end-selected)
-                        selected = -1
-                    else:
-                        AIMove = generate_AI_move(gBoard)
-                        gBoard.move(AIMove[0], AIMove[1])
+                            gBoard.move(selected, end-selected)
+                            selected = -1
+            if not PLAYER[gBoard.turn % 2]:
+                AIMove = generate_AI_move(gBoard)
+                gBoard.move(AIMove[0], AIMove[1])
             for i in range(64):
                 if i == selected:
                     pygame.draw.rect(
