@@ -9,8 +9,10 @@ HEIGHT = 640
 SIZE = 80
 PLAYER = [True, False]  # true for human
 PAIN = False
+FPS = 5
 
 pygame.init()
+clock = pygame.time.Clock()
 
 
 class Board:
@@ -55,6 +57,15 @@ class Board:
                 self.spaces[end - 8] = Space()
             elif val == 3:
                 self.spaces[end + 8] = Space()
+            elif val == 4:
+                self.spaces[end] = Queen(self.spaces[end].colour)
+            elif val == 5:
+                if end % 8 == 6:
+                    self.spaces[end - 1] = self.spaces[end + 1]
+                    self.spaces[end + 1] = Space()
+                else:
+                    self.spaces[end + 1] = self.spaces[end - 1]
+                    self.spaces[end - 1] = Space()
             self.turn += 1
             self.history.append((start, end, replaced))
         return 1
@@ -179,6 +190,7 @@ class Space(Singleton):
         self.symbol = " "
         self.colour = -1
         self.jumped = -1
+        self.castle = False
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         return -1
@@ -192,12 +204,14 @@ class Pawn:
         self.symbol = "p"
         self.colour = colour
         self.jumped: int = -1
+        self.castle = False
         if (vPos == 1 and colour == 0) or (vPos == 6 and colour == 1):
             self.jump = True
         else:
             self.jump = False
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
+        # 4 = promote
         end = start + move
         if self.colour == 0:
             if isinstance(board.spaces[end], Space):
@@ -206,8 +220,10 @@ class Pawn:
                         if not isinstance(
                                 board.spaces[end - 8], Space):
                             return 0
-                    self.jumped = board.turn
+                        self.jumped = board.turn
                     self.jump = False
+                    if end//8 == 7:
+                        return 4
                     return 1
             if isinstance(board.spaces[end - 8], Pawn):
                 if board.spaces[end - 8].jumped == board.turn - 1:
@@ -220,6 +236,8 @@ class Pawn:
                 )
                     and not isinstance(board.spaces[end], Space)):
                 if board.spaces[end].colour != self.colour:
+                    if end//8 == 7:
+                        return 4
                     return 1
                 else:
                     return 0
@@ -230,8 +248,10 @@ class Pawn:
                         if not isinstance(
                                 board.spaces[end + 8], Space):
                             return 0
-                    self.jumped = board.turn
+                        self.jumped = board.turn
                     self.jump = False
+                    if end//8 == 0:
+                        return 4
                     return 1
 
             if ((move == -
@@ -247,6 +267,8 @@ class Pawn:
                     or (move == -9 and start % 8 != 0))
                     and not isinstance(board.spaces[end], Space)):
                 if board.spaces[end].colour != self.colour:
+                    if end//8 == 0:
+                        return 4
                     return 1
                 else:
                     return 0
@@ -305,6 +327,7 @@ class Knight:
         self.symbol = "n"
         self.colour = colour
         self.jumped = -1
+        self.castle = False
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         # 17,15,10,6
@@ -336,6 +359,7 @@ class Bishop:
         self.symbol = "b"
         self.colour = colour
         self.jumped = -1
+        self.castle = False
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
@@ -353,26 +377,26 @@ class Bishop:
             if move % 7 == 0 and move > 0:
                 if end % 8 > start % 8:
                     return 0
-                for i in range(move // 7):
-                    if board.spaces[start + 7 + i * 7] != Space():
+                for i in range(1, move // 7):
+                    if board.spaces[start + i * 7] != Space():
                         return 0
             elif move % 9 == 0 and move > 0:
                 if end % 8 < start % 8:
                     return 0
-                for i in range(move // 9):
-                    if board.spaces[start + 9 + i * 9] != Space():
+                for i in range(1, move // 9):
+                    if board.spaces[start + i * 9] != Space():
                         return 0
             elif move % 9 == 0 and move < 0:
                 if end % 8 > start % 8:
                     return 0
-                for i in range(abs(move // 9)):
-                    if board.spaces[start - 9 - i * 9] != Space():
+                for i in range(1, abs(move // 9)):
+                    if board.spaces[start - i * 9] != Space():
                         return 0
             elif move % 7 == 0 and move < 0:
                 if end % 8 < start % 8:
                     return 0
-                for i in range(abs(move // 7)):
-                    if board.spaces[start - 7 - i * 7] != Space():
+                for i in range(1, abs(move // 7)):
+                    if board.spaces[start - i * 7] != Space():
                         return 0
             else:
                 print("pain")
@@ -413,7 +437,7 @@ class Rook:
                 ):
                     return 0
             return 1
-        if 0 < move < 8:
+        if -8 < move < 8:
             if move == abs(move):
                 if move % 8 < end % 8:
                     for i in range(1, move):
@@ -423,7 +447,7 @@ class Rook:
                     return 1
             else:
                 if move % 8 > end % 8:
-                    for i in range(1, move):
+                    for i in range(1, abs(move)):
                         if not isinstance(
                                 board.spaces[start - i], Space):
                             return 0
@@ -469,7 +493,7 @@ class King:
         end = start + move
         if not 0 <= end < 64:
             return 0
-        if move not in [-9, -8, -7, -1, 1, 7, 8, 9]:
+        if move not in [-9, -8, -7, -2, -1, 1, 2, 7, 8, 9]:
             return 0
         if self.colour == board.spaces[end].colour:
             return 0
@@ -480,12 +504,27 @@ class King:
             if end % 8 == start % 8 + 1:
                 return 1
         else:
-            return 1
+            if (
+                move == 2
+                and isinstance(board.spaces[end - 1], Space)
+                and isinstance(board.spaces[end], Space)
+                and self.castle
+                and board.spaces[end + 1].castle
+            ):
+                return 5
+            if (
+                move == -2
+                and isinstance(board.spaces[end + 1], Space)
+                and isinstance(board.spaces[end], Space)
+                and self.castle
+                and board.spaces[end - 1].castle
+            ):
+                return 5
         return 0
 
     def possible_moves(self, start: int, board: Board) -> List[int]:
         moves: List[int] = []
-        for move in [-9, -8, -7, -1, 1, 7, 8, 9]:
+        for move in [-9, -8, -7, -2, -1, 1, 2, 7, 8, 9]:
             if self.validate_move(start, move, board):
                 moves.append(move)
         return moves
@@ -532,7 +571,10 @@ def main() -> None:
                             selected = -1
             if not PLAYER[gBoard.turn % 2]:
                 AIMove = generate_AI_move(gBoard)
-                gBoard.move(AIMove[0], AIMove[1])
+                if AIMove == (-1, -1):
+                    gBoard.undo()
+                else:
+                    gBoard.move(AIMove[0], AIMove[1])
             for i in range(64):
                 if i == selected:
                     pygame.draw.rect(
@@ -566,7 +608,7 @@ def main() -> None:
                             f'{random.randint(0,1)}.png'
                         )
                     screen.blit(sprite, (i % 8 * SIZE, (7 - i//8) * SIZE))
-
+            clock.tick(FPS)
             pygame.display.flip()
     else:
         while running:

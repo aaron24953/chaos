@@ -6,7 +6,7 @@ def generate_AI_move(board: chess.Board) -> tuple[int, int]:  # [start, move]
     allMoves = board.all_moves()
     picked = False
     i = 0
-    while not picked:
+    while not picked and i < 1000:
         start = random.randint(0, 63)
         i += 1
         if i % 1000 == 0:
