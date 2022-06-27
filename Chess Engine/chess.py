@@ -170,6 +170,7 @@ class Board:
 
     def undo(self):
         if self.history:
+            self.done = False
             changes = self.history.pop()
             self.turn -= 1
             for change in changes:
