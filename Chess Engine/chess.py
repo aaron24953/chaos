@@ -7,7 +7,7 @@ GUI = True
 WIDTH = 640
 HEIGHT = 640
 SIZE = 80
-PLAYER = [True, True]  # true for human
+PLAYER = [True, False]  # true for human
 PAIN = False
 FPS = 5
 
@@ -71,6 +71,9 @@ class Board:
             self.spaces[end] = self.spaces[start]
             self.spaces[start] = Space()
             self.spaces[end].castle = False
+            if self.spaces[end].symbol in ["k", "r"]:
+                if self.spaces[end].moved == -1:  # type: ignore
+                    self.spaces[end].moved = self.turn  # type: ignore
             if val == 2:
                 changes.append((self.spaces[end - 8], end - 8))
                 self.spaces[end - 8] = Space()
@@ -168,9 +171,17 @@ class Board:
     def undo(self):
         if self.history:
             changes = self.history.pop()
+            self.turn -= 1
             for change in changes:
                 self.spaces[change[1]] = change[0]
-            self.turn -= 1
+                piece = self.spaces[change[1]]
+                if piece.symbol == "p" and piece.jumped == self.turn:
+                    piece.jump = True  # type: ignore
+                    piece.jumped = -1
+                if piece.symbol in ["r", "k"]:
+                    if piece.moved == self.turn:  # type: ignore
+                        piece.moved = -1  # type: ignore
+                        piece.castle = True
 
     def all_moves(self, colour: int) -> List[List[int]]:
         allMoves: List[List[int]] = []
@@ -497,6 +508,7 @@ class Rook:
         self.castle = True
         self.colour = colour
         self.jumped = -1
+        self.moved = -1
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
@@ -567,6 +579,7 @@ class King:
         self.symbol = "k"
         self.castle = True
         self.jumped = -1
+        self.moved = -1
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
