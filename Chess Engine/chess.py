@@ -7,7 +7,7 @@ GUI = True
 WIDTH = 640
 HEIGHT = 640
 SIZE = 80
-PLAYER = [True, False]  # true for human
+PLAYER = [True, True]  # true for human
 PAIN = False
 FPS = 5
 
@@ -26,49 +26,76 @@ class Board:
                                 King,
                                 ]] = [Space(i) for i in range(64)]
         self.turn: int = 0
+        self.done = False
         self.kingPositions: List[int] = [-1, -1]
-        self.history: List[Tuple[int, int, Union[
-            Space,
-            Pawn,
-            Knight,
-            Bishop,
-            Rook,
-            Queen,
-            King,
-            ]]] = []
+        self.history: List[List[Tuple[
+            Union[
+                Space,
+                Pawn,
+                Knight,
+                Bishop,
+                Rook,
+                Queen,
+                King,
+            ],
+            int
+        ]]] = []
 
     def move(self, start: int, move: int) -> int:
         end = start + move
         if not move:
-            return 0
+            return 1
         if end >= 64 or end < 0:
-            return 0
+            return 2
         if self.spaces[start] == Space():
             print("thats a space")
-            return 0
+            return 3
         if self.spaces[start].colour != self.turn % 2:
-            return 0
+            return 4
         val: int = self.spaces[start].validate_move(start, move, self)
         if val:
-            replaced = self.spaces[end]
+            changes: List[tuple[
+                Union[
+                    Space,
+                    Pawn,
+                    Knight,
+                    Bishop,
+                    Rook,
+                    Queen,
+                    King,
+                ],
+                int
+                ]] = []
+            changes.append((self.spaces[end], end))
+            changes.append((self.spaces[start], start))
             self.spaces[end] = self.spaces[start]
             self.spaces[start] = Space()
+            self.spaces[end].castle = False
             if val == 2:
+                changes.append((self.spaces[end - 8], end - 8))
                 self.spaces[end - 8] = Space()
             elif val == 3:
+                changes.append((self.spaces[end + 8], end + 8))
                 self.spaces[end + 8] = Space()
             elif val == 4:
                 self.spaces[end] = Queen(self.spaces[end].colour)
             elif val == 5:
                 if end % 8 == 6:
+                    changes.append((self.spaces[end - 1], end - 1))
+                    changes.append((self.spaces[end + 1], end + 1))
                     self.spaces[end - 1] = self.spaces[end + 1]
                     self.spaces[end + 1] = Space()
                 else:
                     self.spaces[end + 1] = self.spaces[end - 1]
                     self.spaces[end - 1] = Space()
             self.turn += 1
-            self.history.append((start, end, replaced))
-        return 1
+            self.history.append(changes)
+            if self.check((self.turn - 1) % 2):
+                self.undo()
+                return 5
+        else:
+            return 6
+        return 0
 
     def load_FEN(self, fen: str) -> None:
         fenLines = fen.split("/")
@@ -138,50 +165,101 @@ class Board:
     def startPos(self):
         self.load_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w")
 
-    def checkForCheck(self) -> bool:
-        kingPosition = self.kingPositions[self.turn % 2]
-        kingColour = self.spaces[kingPosition].colour
-        for possibleMove in [17, 15, 10, 6, -17, -15, -10, -6]:
-            if isinstance(self.spaces[kingPosition + possibleMove], Knight):
-                if self.spaces[kingPosition +
-                               possibleMove].colour != kingColour:
-                    if self.spaces[kingPosition -
-                                   possibleMove].validate_move(kingPosition -
-                                                               possibleMove,
-                                                               possibleMove,
-                                                               self,
-                                                               ):
-                        return True
-        for i in range(1, 8):
-            for possibleMove in [-9, -8, -
-                                 7, -1, 1, 7, 8, 9]:  # horendously inneficient
-                if 0 <= kingPosition + possibleMove * i < 64:
-                    if not isinstance(
-                            self.spaces[kingPosition
-                                        + possibleMove * i], Space):
-                        if self.spaces[kingPosition +
-                                       possibleMove * i].colour != kingColour:
-                            if self.spaces[kingPosition +
-                                           possibleMove *
-                                           i].validate_move(kingPosition +
-                                                            possibleMove *
-                                                            i, -
-                                                            possibleMove *
-                                                            i, self):
-                                return True
-        return False
-
     def undo(self):
-        start, end, replaced = self.history.pop()
-        self.spaces[start] = self.spaces[end]
-        self.spaces[end] = replaced
+        if self.history:
+            changes = self.history.pop()
+            for change in changes:
+                self.spaces[change[1]] = change[0]
+            self.turn -= 1
 
-    def all_moves(self) -> List[List[int]]:
+    def all_moves(self, colour: int) -> List[List[int]]:
         allMoves: List[List[int]] = []
         allMoves = [
-            self.spaces[i].possible_moves(i, self) for i in range(64)
+            (
+                self.spaces[i].possible_moves(i, self)
+                if self.spaces[i].colour == colour
+                else []
+            )
+            for i in range(64)
+
         ]
         return allMoves
+
+    def check(self, colour: int) -> bool:
+        kingPos = -1
+        check = False
+        for i in range(64):
+            if (
+                self.spaces[i].symbol == "k"
+                and self.spaces[i].colour == colour
+            ):
+                kingPos = i
+        if kingPos == -1:
+            print("no king?!?!?!?!")
+            return True
+        kingX = kingPos % 8
+        for move in [17, 15, 10, 6, -6, -10, -15, -17]:
+            if 0 <= kingPos + move < 64:
+                if (
+                    self.spaces[kingPos + move].symbol == "n"
+                    and self.spaces[kingPos + move].colour != colour
+                ):
+                    check = True
+        dirHit: List[bool] = [False, False, False, False]
+        moves = [-8, -1, 1, 8]
+        for i in range(4):
+            for j in range(1, 8):
+                move = j * moves[i]
+                if 0 <= kingPos + move < 64:
+                    if (
+                        self.spaces[kingPos + move].symbol in ["q", "r"]
+                        and self.spaces[kingPos + move].colour != colour
+                        and (
+                            i in [0, 3]
+                            or (i == 1 and (kingPos + move) % 8 < kingX)
+                            or (i == 2 and (kingPos + move) % 8 > kingX)
+                        )
+                        and not dirHit[i]
+                    ):
+                        check = True
+                    if self.spaces[kingPos + move] != Space():
+                        dirHit[i] = True
+        dirHit: List[bool] = [False, False, False, False]
+        moves = [-9, -7, 7, 9]
+        for i in range(4):
+            for j in range(1, 8):
+                move = j * moves[i]
+                if 0 <= kingPos + move < 64:
+                    if (
+                        self.spaces[kingPos + move].symbol in ["q", "b"]
+                        and self.spaces[kingPos + move].colour != colour
+                        and (
+                            (i in [0, 2] and (kingPos + move) % 8 < kingX)
+                            or (i in [1, 3] and (kingPos + move) % 8 > kingX)
+                        )
+                        and not dirHit[i]
+                    ):
+                        check = True
+                    if self.spaces[kingPos + move] != Space():
+                        dirHit[i] = True
+        for move in [-9, -8, -7, -1, 1, 7, 8, 9]:
+            if 0 <= kingPos + move < 64:
+                if (
+                    self.spaces[kingPos + move].colour != colour
+                    and self.spaces[kingPos + move].symbol == "k"
+                ):
+                    check = True
+        return check
+
+    def checkMate(self) -> bool:
+        allMoves = self.all_moves(self.turn % 2)
+        for i in range(64):
+            for move in allMoves[i]:
+                val = self.move(i, move)
+                if not val:
+                    self.undo()
+                    return False
+        return True
 
 
 class Space(Singleton):
@@ -319,6 +397,7 @@ class Pawn:
                             if board.spaces[start + move +
                                             8].jumped == board.turn:
                                 possibleMoves.append(move)
+        # need enpassant
         return possibleMoves
 
 
@@ -344,6 +423,10 @@ class Knight:
                 return 1
             elif move in [-17, 15] and start % 8 > 0:
                 return 1
+            elif move in [10, -6] and start % 8 < 6:
+                return 1
+            elif move in [6, -10] and start % 8 > 1:
+                return 1
         return 0
 
     def possible_moves(self, start: int, board: Board):  # bad
@@ -368,39 +451,35 @@ class Bishop:
         if not isinstance(board.spaces[end], Space):
             if board.spaces[end].colour == self.colour:
                 return 0
-        moves = [-9, -7, 7, 9]
-        if move in moves:
-            return 1
+        if move % 7 and move % 9:
+            return 0
+        if move % 7 == 0 and move > 0:
+            if end % 8 > start % 8:
+                return 0
+            for i in range(1, move // 7):
+                if board.spaces[start + i * 7] != Space():
+                    return 0
+        elif move % 9 == 0 and move > 0:
+            if end % 8 < start % 8:
+                return 0
+            for i in range(1, move // 9):
+                if board.spaces[start + i * 9] != Space():
+                    return 0
+        elif move % 9 == 0 and move < 0:
+            if end % 8 > start % 8:
+                return 0
+            for i in range(1, abs(move // 9)):
+                if board.spaces[start - i * 9] != Space():
+                    return 0
+        elif move % 7 == 0 and move < 0:
+            if end % 8 < start % 8:
+                return 0
+            for i in range(1, abs(move // 7)):
+                if board.spaces[start - i * 7] != Space():
+                    return 0
         else:
-            if move % 7 and move % 9:
-                return 0
-            if move % 7 == 0 and move > 0:
-                if end % 8 > start % 8:
-                    return 0
-                for i in range(1, move // 7):
-                    if board.spaces[start + i * 7] != Space():
-                        return 0
-            elif move % 9 == 0 and move > 0:
-                if end % 8 < start % 8:
-                    return 0
-                for i in range(1, move // 9):
-                    if board.spaces[start + i * 9] != Space():
-                        return 0
-            elif move % 9 == 0 and move < 0:
-                if end % 8 > start % 8:
-                    return 0
-                for i in range(1, abs(move // 9)):
-                    if board.spaces[start - i * 9] != Space():
-                        return 0
-            elif move % 7 == 0 and move < 0:
-                if end % 8 < start % 8:
-                    return 0
-                for i in range(1, abs(move // 7)):
-                    if board.spaces[start - i * 7] != Space():
-                        return 0
-            else:
-                print("pain")
-                return 0
+            print("pain")
+            return 0
         return 1
 
     def possible_moves(self, start: int, board: Board) -> List[int]:
@@ -439,14 +518,14 @@ class Rook:
             return 1
         if -8 < move < 8:
             if move == abs(move):
-                if move % 8 < end % 8:
+                if start % 8 < end % 8:
                     for i in range(1, move):
                         if not isinstance(
                                 board.spaces[start + i], Space):
                             return 0
                     return 1
             else:
-                if move % 8 > end % 8:
+                if start % 8 > end % 8:
                     for i in range(1, abs(move)):
                         if not isinstance(
                                 board.spaces[start - i], Space):
@@ -503,6 +582,8 @@ class King:
         elif move in [-7, 1, 9]:
             if end % 8 == start % 8 + 1:
                 return 1
+        elif move in [-8, 8]:
+            return 1
         else:
             if (
                 move == 2
@@ -568,21 +649,32 @@ def main() -> None:
                                 )
                             )
                             gBoard.move(selected, end-selected)
+                            if gBoard.checkMate():
+                                gBoard.done = True
                             selected = -1
+                elif event.type == pygame.KEYUP:
+                    gBoard.undo()
             if not PLAYER[gBoard.turn % 2]:
                 AIMove = generate_AI_move(gBoard)
                 if AIMove == (-1, -1):
                     gBoard.undo()
                 else:
                     gBoard.move(AIMove[0], AIMove[1])
+                    if gBoard.checkMate():
+                        gBoard.done = True
+            selectedMoves: List[int] = []
+            if selected != -1:
+                selectedMoves = (
+                    gBoard.spaces[selected].possible_moves(selected, gBoard)
+                )
+                selectedMoves = (
+                    [
+                        selectedMoves[j]
+                        + selected for j in range(len(selectedMoves))]
+                )
+            kingPos = -1
             for i in range(64):
-                if i == selected:
-                    pygame.draw.rect(
-                        screen,
-                        (0, 0, 255),
-                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
-                    )
-                elif (i + i // 8) % 2:
+                if (i + i // 8) % 2:
                     pygame.draw.rect(
                         screen,
                         (255, 0, 255),
@@ -594,6 +686,36 @@ def main() -> None:
                         (255, 0, 150),
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
+                if (
+                    gBoard.spaces[i].colour == gBoard.turn % 2
+                    and gBoard.spaces[i].symbol == "k"
+                ):
+                    kingPos = i
+                if i == selected:
+                    pygame.draw.rect(
+                        screen,
+                        (0, 0, 255),
+                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                    )
+                elif (i in selectedMoves):
+                    pygame.draw.rect(
+                        screen,
+                        (0, 255, 0),
+                        (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                    )
+                elif i == kingPos:
+                    if gBoard.check(gBoard.turn % 2):
+                        pygame.draw.rect(
+                            screen,
+                            (255, 0, 0),
+                            (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                        )
+                elif gBoard.done:
+                    pygame.draw.rect(
+                            screen,
+                            (255, 0, 0),
+                            (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
+                        )
                 if gBoard.spaces[i] != Space():
                     if not PAIN:
                         sprite = pygame.image.load(
