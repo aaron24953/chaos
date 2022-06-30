@@ -14,7 +14,7 @@ p.init()
 
 clock=p.time.Clock()
 
-size= width,height = 1600, 900
+size= width,height = 800, 450
 black=0,0,0
 FPS=0
 UPF=40
@@ -27,7 +27,7 @@ rad=1
 penCol=(255,0,255)
 traceCol=(255,0,0)
 #[vel,ang,mass,len]
-a=[0.00005,PI,2,150]
+a=[0.00004,PI,2,150]
 b=[0.0005,PI,1,250]
 g=0.0001
 
