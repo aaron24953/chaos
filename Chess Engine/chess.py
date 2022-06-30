@@ -735,7 +735,7 @@ def main() -> None:
             if not PLAYER[gBoard.turn % 2]:
                 AIMove = generate_AI_move(gBoard)
                 if AIMove == (-1, -1):
-                    gBoard.undo()
+                    gBoard.done = True
                 else:
                     gBoard.move(AIMove[0], AIMove[1])
                     if gBoard.checkMate():

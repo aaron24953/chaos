@@ -1,9 +1,10 @@
 from typing import List
 from chess import Board
 import random
+import time
 
 mode = "minmax"
-depth = 0
+depth = 1  # 0 = own move only, 1 = own + reply, 2 = o+r+o, ect
 
 
 def generate_AI_move(board: Board) -> tuple[int, int]:  # [start, move]
@@ -16,11 +17,17 @@ def generate_AI_move(board: Board) -> tuple[int, int]:  # [start, move]
             i += 1
             if i % 1000 == 0:
                 print(i)
-            if allMoves[start] and board.spaces[start].colour == board.turn % 2:
+            if (
+                allMoves[start]
+                and board.spaces[start].colour == board.turn % 2
+            ):
                 picked = True
                 return (start, random.choice(allMoves[start]))
     elif mode == "minmax":
+        startT = time.time()
         best = minmax(board, depth)
+        endT = time.time()
+        print(endT - startT)
         return (best[0], best[1])
     return (-1, -1)
 
@@ -28,17 +35,19 @@ def generate_AI_move(board: Board) -> tuple[int, int]:  # [start, move]
 def minmax(board: Board, depth: int) -> tuple[int, int, int]:  # start end eval
     evals: List[int] = []
     moves: List[tuple[int, int]] = []
-    print(depth)
+    allMoves = board.all_moves(board.turn % 2)
     for i in range(64):
-        for move in board.all_moves(board.turn % 2)[i]:
+        for move in allMoves[i]:
             if not board.move(i, move):
                 if depth:
                     moveVal = minmax(board, depth - 1)
                 else:
                     moveVal = (i, move, eval(board))
                 evals.append(moveVal[2])
-                moves.append((moveVal[0], moveVal[1]))
+                moves.append((i, move))
                 board.undo()
+    if not moves:
+        return (-1, -1, 0)
     if board.turn % 2:
         move = moves[evals.index(min(evals))]
         return (move[0], move[1], min(evals))
@@ -48,7 +57,7 @@ def minmax(board: Board, depth: int) -> tuple[int, int, int]:  # start end eval
 
 
 def eval(board: Board):
-    if board.done:
+    if board.checkMate():
         if board.turn % 2:
             return 100000
         else:
