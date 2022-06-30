@@ -11,6 +11,19 @@ PLAYER = [True, False]  # true for human
 PAIN = False
 FPS = 5
 
+if PAIN:
+    WHITE = (255, 0, 155)
+    BLACK = (255, 0, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+else:  # constants never redefined but still flagged
+    WHITE = (255, 255, 255)  # type: ignore
+    BLACK = (155, 155, 255)  # type: ignore
+    RED = (255, 0, 0)  # type: ignore
+    GREEN = (155, 255, 155)  # type: ignore
+    BLUE = (0, 0, 155)  # type: ignore
+
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -89,8 +102,10 @@ class Board:
                     self.spaces[end - 1] = self.spaces[end + 1]
                     self.spaces[end + 1] = Space()
                 else:
-                    self.spaces[end + 1] = self.spaces[end - 1]
-                    self.spaces[end - 1] = Space()
+                    changes.append((self.spaces[end - 2], end - 2))
+                    changes.append((self.spaces[end + 1], end + 1))
+                    self.spaces[end + 1] = self.spaces[end - 2]
+                    self.spaces[end - 2] = Space()
             self.turn += 1
             self.history.append(changes)
             if self.check((self.turn - 1) % 2):
@@ -176,9 +191,16 @@ class Board:
             for change in changes:
                 self.spaces[change[1]] = change[0]
                 piece = self.spaces[change[1]]
-                if piece.symbol == "p" and piece.jumped == self.turn:
+                pieceY = change[1] // 8
+                if (
+                    piece.symbol == "p"
+                    and (
+                        (pieceY == 1 and piece.colour == 0)
+                        or (pieceY == 6 and piece.colour == 1)
+                    )
+                ):
                     piece.jump = True  # type: ignore
-                    piece.jumped = -1
+                    piece.jumped = -10
                 if piece.symbol in ["r", "k"]:
                     if piece.moved == self.turn:  # type: ignore
                         piece.moved = -1  # type: ignore
@@ -193,8 +215,16 @@ class Board:
                 else []
             )
             for i in range(64)
-
         ]
+        invalid: List[tuple[int, int]] = []
+        for i in range(64):  # pretty bad
+            for j in range(len(allMoves[i])):
+                if self.move(i, allMoves[i][j]):
+                    invalid.append((i, allMoves[i][j]))
+                else:
+                    self.undo()
+        for no in invalid:
+            allMoves[no[0]].remove(no[1])
         return allMoves
 
     def check(self, colour: int) -> bool:
@@ -261,16 +291,41 @@ class Board:
                     and self.spaces[kingPos + move].symbol == "k"
                 ):
                     check = True
+        if colour:
+            if (
+                (
+                    self.spaces[kingPos - 7].colour == 0
+                    and self.spaces[kingPos - 7].symbol == "p"
+                    and kingPos % 8 != 7
+                )
+                or (
+                    self.spaces[kingPos - 9].colour == 0
+                    and self.spaces[kingPos - 9].symbol == "p"
+                    and kingPos % 8 != 0
+                )
+            ):
+                check = True
+        else:
+            if (
+                (
+                    self.spaces[kingPos + 7].colour == 1
+                    and self.spaces[kingPos + 7].symbol == "p"
+                    and kingPos % 8 != 0
+                )
+                or (
+                    self.spaces[kingPos + 9].colour == 1
+                    and self.spaces[kingPos + 9].symbol == "p"
+                    and kingPos % 8 != 7
+                )
+            ):
+                check = True
         return check
 
     def checkMate(self) -> bool:
         allMoves = self.all_moves(self.turn % 2)
-        for i in range(64):
-            for move in allMoves[i]:
-                val = self.move(i, move)
-                if not val:
-                    self.undo()
-                    return False
+        for moves in allMoves:
+            if moves:
+                return False
         return True
 
 
@@ -279,8 +334,9 @@ class Space(Singleton):
         self.args = args
         self.symbol = " "
         self.colour = -1
-        self.jumped = -1
+        self.jumped = -10
         self.castle = False
+        self.val = 0
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         return -1
@@ -293,12 +349,13 @@ class Pawn:
     def __init__(self, colour: int, vPos: int):
         self.symbol = "p"
         self.colour = colour
-        self.jumped: int = -1
+        self.jumped: int = -10
         self.castle = False
         if (vPos == 1 and colour == 0) or (vPos == 6 and colour == 1):
             self.jump = True
         else:
             self.jump = False
+        self.val = 1
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         # 4 = promote
@@ -369,9 +426,9 @@ class Pawn:
         if not self.colour:
             if isinstance(board.spaces[start + 8], Space):
                 possibleMoves.append(8)
-            if self.jump:
-                if isinstance(board.spaces[start + 16], Space):
-                    possibleMoves.append(16)
+                if self.jump:
+                    if isinstance(board.spaces[start + 16], Space):
+                        possibleMoves.append(16)
             for move in [7, 9]:
                 if ((move == 7 and start % 8 != 0) or (
                         move == 9 and start % 8 != 7)):
@@ -384,14 +441,14 @@ class Pawn:
                                 board.spaces[start + move - 8], Space
                         ):
                             if board.spaces[start + move -
-                                            8].jumped == board.turn:
+                                            8].jumped == board.turn - 1:
                                 possibleMoves.append(move)
         else:
             if isinstance(board.spaces[start - 8], Space):
                 possibleMoves.append(-8)
-            if self.jump:
-                if isinstance(board.spaces[start - 16], Space):
-                    possibleMoves.append(-16)
+                if self.jump:
+                    if isinstance(board.spaces[start - 16], Space):
+                        possibleMoves.append(-16)
             for move in [-7, -9]:
                 if ((move == -
                      9 and start %
@@ -407,9 +464,8 @@ class Pawn:
                                 board.spaces[start + move + 8], Space
                         ):
                             if board.spaces[start + move +
-                                            8].jumped == board.turn:
+                                            8].jumped == board.turn - 1:
                                 possibleMoves.append(move)
-        # need enpassant
         return possibleMoves
 
 
@@ -417,8 +473,9 @@ class Knight:
     def __init__(self, colour: int):
         self.symbol = "n"
         self.colour = colour
-        self.jumped = -1
+        self.jumped = -10
         self.castle = False
+        self.val = 3
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         # 17,15,10,6
@@ -453,8 +510,9 @@ class Bishop:
     def __init__(self, colour: int):
         self.symbol = "b"
         self.colour = colour
-        self.jumped = -1
+        self.jumped = -10
         self.castle = False
+        self.val = 3
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
@@ -508,8 +566,9 @@ class Rook:
         self.symbol = "r"
         self.castle = True
         self.colour = colour
-        self.jumped = -1
+        self.jumped = -10
         self.moved = -1
+        self.val = 5
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
@@ -560,7 +619,8 @@ class Queen:
         self.colour = colour
         self.symbol = "q"
         self.castle = False
-        self.jumped = -1
+        self.jumped = -10
+        self.val = 9
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         return Rook.validate_move(
@@ -571,7 +631,7 @@ class Queen:
         return (
             Rook.possible_moves(self, start, board)  # type: ignore
             + Bishop.possible_moves(self, start, board)  # type: ignore
-        )  # type: ignore
+        )
 
 
 class King:
@@ -579,8 +639,9 @@ class King:
         self.colour = colour
         self.symbol = "k"
         self.castle = True
-        self.jumped = -1
+        self.jumped = -10
         self.moved = -1
+        self.val = 999999999
 
     def validate_move(self, start: int, move: int, board: Board) -> int:
         end = start + move
@@ -611,8 +672,9 @@ class King:
                 move == -2
                 and isinstance(board.spaces[end + 1], Space)
                 and isinstance(board.spaces[end], Space)
+                and isinstance(board.spaces[end - 1], Space)
                 and self.castle
-                and board.spaces[end - 1].castle
+                and board.spaces[end - 2].castle
             ):
                 return 5
         return 0
@@ -632,7 +694,9 @@ def text_input() -> tuple[int, int]:
 
 
 def main() -> None:
-    from chessAI import generate_AI_move
+    from chessAI import generate_AI_move, eval
+    pygame.font.init()
+    FONT = pygame.font.SysFont('Comic Sans MS', 30)
     gBoard = Board()
     # gBoard.startPos()
     gBoard.load_FEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w")
@@ -679,7 +743,7 @@ def main() -> None:
             selectedMoves: List[int] = []
             if selected != -1:
                 selectedMoves = (
-                    gBoard.spaces[selected].possible_moves(selected, gBoard)
+                    gBoard.all_moves(gBoard.turn % 2)[selected]
                 )
                 selectedMoves = (
                     [
@@ -691,13 +755,13 @@ def main() -> None:
                 if (i + i // 8) % 2:
                     pygame.draw.rect(
                         screen,
-                        (255, 0, 255),
+                        WHITE,
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
                 else:
                     pygame.draw.rect(
                         screen,
-                        (255, 0, 150),
+                        BLACK,
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
                 if (
@@ -708,26 +772,26 @@ def main() -> None:
                 if i == selected:
                     pygame.draw.rect(
                         screen,
-                        (0, 0, 255),
+                        BLUE,
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
                 elif (i in selectedMoves):
                     pygame.draw.rect(
                         screen,
-                        (0, 255, 0),
+                        GREEN,
                         (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                     )
                 elif i == kingPos:
                     if gBoard.check(gBoard.turn % 2):
                         pygame.draw.rect(
                             screen,
-                            (255, 0, 0),
+                            RED,
                             (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                         )
                 elif gBoard.done:
                     pygame.draw.rect(
                             screen,
-                            (255, 0, 0),
+                            RED,
                             (i % 8 * SIZE, (7 - i//8) * SIZE, SIZE, SIZE)
                         )
                 if gBoard.spaces[i] != Space():
@@ -744,6 +808,13 @@ def main() -> None:
                             f'{random.randint(0,1)}.png'
                         )
                     screen.blit(sprite, (i % 8 * SIZE, (7 - i//8) * SIZE))
+            screen.blit(
+                FONT.render(
+                    f"eval: {eval(gBoard)}",
+                    True, RED
+                ),
+                (0, 0)
+            )
             clock.tick(FPS)
             pygame.display.flip()
     else:
