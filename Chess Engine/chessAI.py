@@ -27,7 +27,7 @@ def generate_AI_move(board: Board) -> tuple[int, int]:  # [start, move]
         startT = time.time()
         best = minmax(board, depth)
         endT = time.time()
-        print(endT - startT)
+        print(endT - startT, best)
         return (best[0], best[1])
     return (-1, -1)
 
@@ -38,7 +38,7 @@ def minmax(board: Board, depth: int) -> tuple[int, int, int]:  # start end eval
     allMoves = board.all_moves(board.turn % 2)
     for i in range(64):
         for move in allMoves[i]:
-            if not board.move(i, move):
+            if not board.force_move(i, move):
                 if depth:
                     moveVal = minmax(board, depth - 1)
                 else:

@@ -3,13 +3,13 @@ from typing import List, Tuple, Union
 from singleton import Singleton
 import pygame
 
-GUI = True
+GUI = False
 WIDTH = 640
 HEIGHT = 640
 SIZE = 80
-PLAYER = [True, False]  # true for human
+PLAYER = [False, False]  # true for human
 PAIN = False
-FPS = 5
+FPS = 0
 
 if PAIN:
     WHITE = (255, 0, 155)
@@ -65,6 +65,58 @@ class Board:
             return 3
         if self.spaces[start].colour != self.turn % 2:
             return 4
+        val: int = self.spaces[start].validate_move(start, move, self)
+        if val:
+            changes: List[tuple[
+                Union[
+                    Space,
+                    Pawn,
+                    Knight,
+                    Bishop,
+                    Rook,
+                    Queen,
+                    King,
+                ],
+                int
+                ]] = []
+            changes.append((self.spaces[end], end))
+            changes.append((self.spaces[start], start))
+            self.spaces[end] = self.spaces[start]
+            self.spaces[start] = Space()
+            self.spaces[end].castle = False
+            if self.spaces[end].symbol in ["k", "r"]:
+                if self.spaces[end].moved == -1:  # type: ignore
+                    self.spaces[end].moved = self.turn  # type: ignore
+            if val == 2:
+                changes.append((self.spaces[end - 8], end - 8))
+                self.spaces[end - 8] = Space()
+            elif val == 3:
+                changes.append((self.spaces[end + 8], end + 8))
+                self.spaces[end + 8] = Space()
+            elif val == 4:
+                self.spaces[end] = Queen(self.spaces[end].colour)
+            elif val == 5:
+                if end % 8 == 6:
+                    changes.append((self.spaces[end - 1], end - 1))
+                    changes.append((self.spaces[end + 1], end + 1))
+                    self.spaces[end - 1] = self.spaces[end + 1]
+                    self.spaces[end + 1] = Space()
+                else:
+                    changes.append((self.spaces[end - 2], end - 2))
+                    changes.append((self.spaces[end + 1], end + 1))
+                    self.spaces[end + 1] = self.spaces[end - 2]
+                    self.spaces[end - 2] = Space()
+            self.turn += 1
+            self.history.append(changes)
+            if self.check((self.turn - 1) % 2):
+                self.undo()
+                return 5
+        else:
+            return 6
+        return 0
+
+    def force_move(self, start: int, move: int):
+        end = start + move
         val: int = self.spaces[start].validate_move(start, move, self)
         if val:
             changes: List[tuple[
@@ -815,16 +867,20 @@ def main() -> None:
                 ),
                 (0, 0)
             )
-            clock.tick(FPS)
             pygame.display.flip()
+            clock.tick(FPS)
     else:
         while running:
             gBoard.text_display()
-            input_ = text_input()
-            if input_[0] == -1:
-                gBoard.undo()
+            if PLAYER[gBoard.turn % 2]:
+                input_ = text_input()
+                if input_[0] == -1:
+                    gBoard.undo()
+                else:
+                    gBoard.move(input_[0], input_[1])
             else:
-                gBoard.move(input_[0], input_[1])
+                move = generate_AI_move(gBoard)
+                gBoard.move(move[0], move[1])
 
 
 if __name__ == "__main__":
