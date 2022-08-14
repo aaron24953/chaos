@@ -3,11 +3,11 @@ from typing import List, Tuple, Union
 from singleton import Singleton
 import pygame
 
-GUI = False
+GUI = True
 WIDTH = 640
 HEIGHT = 640
 SIZE = 80
-PLAYER = [False, False]  # true for human
+PLAYER = [True, True]  # true for human
 PAIN = False
 FPS = 0
 

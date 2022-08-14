@@ -1,10 +1,11 @@
+from typing import List
 from factorial import factorial as fact
-def permute(array):
-    print(array)
+def permute(array: List[int]) -> List[List[int]]:
+    #print(array)
     leng=len(array)
     facts=[fact(leng-i) for i in range(leng+1)]
     perms=[]
-    print(facts[0])
+    #print(facts[0])
     for i in range(facts[0]):
         perm=[]
         indexes=[j for j in range(leng)]
