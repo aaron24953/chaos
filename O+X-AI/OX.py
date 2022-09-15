@@ -8,9 +8,9 @@ class Board:
     def __init__(self) -> None:
         self.spaces = [0 * i for i in range(9)]
         self.turn = 0
-        self.done = False
+        self.moves: list[int] = []
 
-    def win(self):
+    def eval(self):
         for i in range(3):
             if (
                 self.spaces[i] == self.spaces[i + 3] == self.spaces[i + 6]
@@ -30,11 +30,25 @@ class Board:
 
         return 0
 
+    def move(self, square: int):
+        if not self.spaces[square] and not self.eval():
+            self.spaces[square] = self.turn % 2 + 1
+            self.turn += 1
+            self.moves.append(square)
+
+    def undo(self):
+        if self.moves:
+            move = self.moves.pop()
+            self.spaces[move] = 0
+            self.turn -= 1
+
 
 def main():
+    from AI import minmax
     running = True
     xy = 450
     w = 5
+    DEPTH = 7
     SIZE = (xy, xy)
     screen = pygame.display.set_mode(SIZE)
     board = Board()
@@ -43,12 +57,14 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if not board.done:
-                    mouse = pygame.mouse.get_pos()
-                    square = mouse[1] // (xy // 3) * 3 + mouse[0] // (xy // 3)
-                    if not board.spaces[square]:
-                        board.spaces[square] = board.turn % 2 + 1
-                        board.turn += 1
+                mouse = pygame.mouse.get_pos()
+                square = mouse[1] // (xy // 3) * 3 + mouse[0] // (xy // 3)
+                board.move(square)
+            if event.type == pygame.KEYDOWN:
+                if pygame.key.get_pressed()[pygame.K_BACKSPACE]:
+                    board.undo()
+                if pygame.key.get_pressed()[pygame.K_SPACE]:
+                    board.move(minmax(board, DEPTH)[1])
 
         screen.fill((0, 0, 0))
         pygame.draw.line(screen, (255, 255, 255), (xy / 3, 0), (xy / 3, xy), w)
@@ -70,13 +86,11 @@ def main():
                 pygame.draw.circle(
                     screen, (255, 0, 255), (x + xy / 6, y + xy / 6), xy / 6, w
                 )
-        win = board.win()
-        if win:
-            board.done = True
-        if win == 1:
+        eval = board.eval()
+        if eval == 1:
             pygame.draw.line(screen, (255, 0, 255), (0, 0), (xy, xy), w * 3)
             pygame.draw.line(screen, (255, 0, 255), (xy, 0), (0, xy), w * 3)
-        elif win == 2:
+        elif eval == 2:
             pygame.draw.circle(screen, (255, 0, 255), (xy / 2, xy / 2), xy / 2, w * 3)
 
         pygame.display.flip()
