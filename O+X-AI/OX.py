@@ -44,7 +44,8 @@ class Board:
 
 
 def main():
-    from AI import minmax
+    from AI import minmax  # type: ignore
+
     running = True
     xy = 450
     w = 5
