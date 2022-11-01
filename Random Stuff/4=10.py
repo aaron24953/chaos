@@ -1,5 +1,6 @@
 from typing import List, Union
 from permutations import permute
+
 SIZE = 4
 TO_TEST = [8, 9, 2, 6]
 RESTRICTIONS = []
@@ -11,13 +12,13 @@ def calc(toCalc: List[Union[int, float]]):  # [num,symbol,num...
     for i in range(1, len(toCalc) - 1, 2):
         if toCalc[i] == 3:
             if toCalc[i + 1] == 0:
-                return 2**64-1
+                return 2**64 - 1
             toCalc[i + 1] = toCalc[i - 1] / toCalc[i + 1]
             done.append(i)
         elif toCalc[i] == 2:
             toCalc[i + 1] = toCalc[i - 1] * toCalc[i + 1]
             done.append(i)
-    for i in range(len(done)-1, -1, -1):
+    for i in range(len(done) - 1, -1, -1):
         toCalc.pop(done[i])
         toCalc.pop(done[i] - 1)
     done = []
@@ -28,7 +29,7 @@ def calc(toCalc: List[Union[int, float]]):  # [num,symbol,num...
         elif toCalc[i] == 0:
             toCalc[i + 1] = toCalc[i - 1] + toCalc[i + 1]
             done.append(i)
-    for i in range(len(done)-1, -1, -1):
+    for i in range(len(done) - 1, -1, -1):
         toCalc.pop(done[i])
         toCalc.pop(done[i] - 1)
     return toCalc[0]
@@ -49,10 +50,12 @@ def test(number: List[int], restrictions: List[int] = []):
                     for i in range(SIZE * 2 - 1)
                 ]
                 if calc(toCalc) == TARGET:
-                    possible.append([
-                        (number[i // 2] if i % 2 == 0 else operator[i // 2])
-                        for i in range(SIZE * 2 - 1)
-                    ])
+                    possible.append(
+                        [
+                            (number[i // 2] if i % 2 == 0 else operator[i // 2])
+                            for i in range(SIZE * 2 - 1)
+                        ]
+                    )
     return possible
 
 
@@ -87,10 +90,12 @@ def all_valid():
                 for i in range(SIZE * 2 - 1)
             ]
             if calc(toCalc) == TARGET:
-                valid.append([
-                    (number[i // 2] if i % 2 == 0 else operator[i // 2])
-                    for i in range(SIZE * 2 - 1)
-                ])
+                valid.append(
+                    [
+                        (number[i // 2] if i % 2 == 0 else operator[i // 2])
+                        for i in range(SIZE * 2 - 1)
+                    ]
+                )
                 # print(make_nice(valid.pop()))  # remove
     return valid
 
