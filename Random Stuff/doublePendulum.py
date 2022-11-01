@@ -1,5 +1,4 @@
 import pygame as p
-from sys import *
 from math import sin, cos
 
 lines = True
@@ -32,7 +31,7 @@ b = [0.0005, PI, 1, 250]
 g = 0.0001
 
 
-def rainbow(x):
+def rainbow(x: float):
     x = x % (255 * 6)
     if x <= 255:
         col = (255, x, 0)
