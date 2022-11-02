@@ -5,14 +5,15 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-size = width, height = 1600, 900
+size = width, height = 800, 450
 
-FRICTION = 0.99
+FRICTION = 1
 FPS = 60
 P = 0.05
 UPF = 1
 DV = 5
 VMULT = 25
+E = 0.3  # tendency to oppose own velocity, E<=1
 
 traceRect = pygame.Surface(size)
 screen = pygame.display.set_mode(size)
@@ -41,8 +42,8 @@ def update(numI: int):
     for i in range(numI):
         a[2] = (a[1][0], a[1][1])
         if random() < P:
-            a[0][0] += (random() - 0.5) * DV + (width / 2 - a[1][0]) / (5 / P)
-            a[0][1] += (random() - 0.5) * DV + (height / 2 - a[1][1]) / (5 / P)
+            a[0][0] += (random() - 0.5) * DV + (width / 2 - a[1][0]) / (5 / P) - a[0][0]*E
+            a[0][1] += (random() - 0.5) * DV + (height / 2 - a[1][1]) / (5 / P) - a[0][1]*E
         a[0][0] *= FRICTION
         a[0][1] *= FRICTION
         a[1][0] += a[0][0]
@@ -55,17 +56,17 @@ while True:
             exit()
     pygame.draw.line(
         traceRect,
-        rainbow((a[0][0] ** 2 + a[0][1] ** 2) ** (1 / 1.5) * 10),
+        rainbow((a[0][0] ** 2 + a[0][1] ** 2) ** (1 / 1.5) * 30),
         a[1],
         a[2],
         3,
     )
     screen.fill((0, 0, 0))
     screen.blit(traceRect, (0, 0))
-    pygame.draw.circle(screen, (255, 255, 255), a[1], 5)
+    pygame.draw.circle(screen, (255, 255, 255), a[1], 10)
     pygame.draw.line(
         screen,
-        (255, 255, 0),
+        (255, 0, 255),
         a[1],
         (a[0][0] * VMULT + a[1][0], a[0][1] * VMULT + a[1][1]),
         3,
