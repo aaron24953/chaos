@@ -6,16 +6,17 @@ pygame.font.init()
 
 clock = pygame.time.Clock()
 
-MOVEINC = 1
-size = width, height = 1600, 900
+size = width, height = 1366, 768
 screen = pygame.display.set_mode(size)
 traceRect = pygame.Surface(size)
 font = pygame.font.SysFont("Arial", 30)
 
-a = [[width / 2, height / 2], (0, 0)]
-i = 0
-c = []
-UPF = 10001
+a = [[width/2, height/2],(0,0)]
+i=0
+c=[]
+UPF = 1001
+MOVEINC = 1
+MOD = True
 
 
 def rainbow(x: float):
@@ -50,10 +51,14 @@ while True:
         elif r < 0.75:
             a[0][1] += MOVEINC
         else:
-            a[0][1] -= MOVEINC
-        if a[0] == [width / 2, height / 2]:
-            c.append(i)
-        pygame.draw.line(traceRect, rainbow((i / UPF) // 5), a[0], a[1], 1)
+            a[0][1]-=MOVEINC
+        if a[0] == [width/2, height/2]: c.append(i)
+        if MOD:
+            a[0][0] %= width
+            a[0][1] %= height
+            pygame.draw.circle(traceRect, rainbow((i/UPF)//5), a[0], 1)
+        else:
+            pygame.draw.line(traceRect, rainbow((i/UPF)//5), a[0], a[1], 1)
     screen.fill((0, 0, 0))
     screen.blit(traceRect, (0, 0))
     screen.blit(
