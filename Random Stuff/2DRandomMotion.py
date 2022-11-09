@@ -18,6 +18,7 @@ UPF = 1001
 MOVEINC = 1
 MOD = True
 
+
 def rainbow(x: float):
     x = x % (255 * 6)
     if x <= 255:
@@ -40,15 +41,15 @@ while True:
         if event.type == pygame.QUIT:
             exit()
     for j in range(UPF):
-        i+=1
+        i += 1
         a[1] = (a[0][0], a[0][1])
-        r=random()
-        if r<0.25:
-            a[0][0]+=MOVEINC
-        elif r<0.5:
-            a[0][0]-=MOVEINC
-        elif r<0.75:
-            a[0][1]+=MOVEINC
+        r = random()
+        if r < 0.25:
+            a[0][0] += MOVEINC
+        elif r < 0.5:
+            a[0][0] -= MOVEINC
+        elif r < 0.75:
+            a[0][1] += MOVEINC
         else:
             a[0][1]-=MOVEINC
         if a[0] == [width/2, height/2]: c.append(i)
@@ -60,7 +61,11 @@ while True:
             pygame.draw.line(traceRect, rainbow((i/UPF)//5), a[0], a[1], 1)
     screen.fill((0, 0, 0))
     screen.blit(traceRect, (0, 0))
-    screen.blit(font.render(f"Iterations: {i}", True, (255, 255, 255),(0, 0, 0)), (0, 0))
-    screen.blit(font.render(f"Cords: {a[0]}", True, (255, 255, 255),(0, 0, 0)), (0, 30))
-    # screen.blit(font.render(f"Centres: {c}", True, (255, 255, 255),(0, 0, 0)), (0, 60))
+    screen.blit(
+        font.render(f"Iterations: {i}", True, (255, 255, 255), (0, 0, 0)), (0, 0)
+    )
+    screen.blit(
+        font.render(f"Cords: {a[0]}", True, (255, 255, 255), (0, 0, 0)), (0, 30)
+    )
+    screen.blit(font.render(f"Centres: {c}", True, (255, 255, 255), (0, 0, 0)), (0, 60))
     pygame.display.flip()
