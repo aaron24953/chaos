@@ -62,5 +62,5 @@ while True:
     screen.blit(traceRect, (0, 0))
     screen.blit(font.render(f"Iterations: {i}", True, (255, 255, 255),(0, 0, 0)), (0, 0))
     screen.blit(font.render(f"Cords: {a[0]}", True, (255, 255, 255),(0, 0, 0)), (0, 30))
-    screen.blit(font.render(f"Centres: {c}", True, (255, 255, 255),(0, 0, 0)), (0, 60))
+    # screen.blit(font.render(f"Centres: {c}", True, (255, 255, 255),(0, 0, 0)), (0, 60))
     pygame.display.flip()
