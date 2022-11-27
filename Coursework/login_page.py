@@ -1,9 +1,10 @@
 from PyQt5 import QtCore, QtWidgets
-import config
+from config import X, Y
+from booking_info import BookingInfoPage
 import sys
 
 
-class ExamplePage(object):
+class LoginPage(object):
     def __init__(self) -> None:
         Dialog = QtWidgets.QDialog()
         self.setupUI(Dialog)
@@ -11,8 +12,8 @@ class ExamplePage(object):
         Dialog.exec()
 
     def setupUI(self, Dialog: QtWidgets.QDialog):
-        self.x = config.X // 6
-        self.y = config.Y // 4
+        self.x = X // 6
+        self.y = Y // 4
         Dialog.resize(self.x, self.y)
         Dialog.setWindowTitle("Login")
         Dialog.setStyleSheet("font-family: Comic Sans MS;")
@@ -37,12 +38,16 @@ class ExamplePage(object):
         self.password.resize(self.x, self.y // 4)
         self.password.move(0, self.y * 5 // 9)
 
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setFixedSize(self.x // 3, self.y * 2 // 9)
-        self.pushButton.setText("Login")
-        self.pushButton.move(self.x // 3, self.y * 7 // 9)
+        self.loginButton = QtWidgets.QPushButton(Dialog)
+        self.loginButton.setFixedSize(self.x // 3, self.y * 2 // 9)
+        self.loginButton.setText("Login")
+        self.loginButton.move(self.x // 3, self.y * 7 // 9)
+        self.loginButton.clicked.connect(self.book)
+
+    def book(self):
+        BookingInfoPage()
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = ExamplePage()
+    ui = LoginPage()
