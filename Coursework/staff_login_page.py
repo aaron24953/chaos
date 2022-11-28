@@ -1,10 +1,11 @@
+# staff login page
+
 from PyQt5 import QtCore, QtWidgets
 from config import X, Y
-from booking_info import BookingInfoPage
 import sys
 
 
-class LoginPage(object):
+class StaffLoginPage(object):
     def __init__(self) -> None:
         Dialog = QtWidgets.QDialog()
         self.setupUI(Dialog)
@@ -45,9 +46,9 @@ class LoginPage(object):
         self.loginButton.clicked.connect(self.book)
 
     def book(self):
-        BookingInfoPage(7)
+        StaffMainPage(2)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = LoginPage()
+    ui = StaffLoginPage()
