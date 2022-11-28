@@ -32,7 +32,7 @@ class ExamplePage(object):
 
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
         self.lineEdit.setPlaceholderText("example lineEdit")
-        self.lineEdit.move(self.x/10,self.y/10)
+        self.lineEdit.move(self.x / 10, self.y / 10)
 
     def randomisePB(self):
         self.pushButton.move(self.x * 2 / 3 * random(), self.y * 2 / 3 * random())
