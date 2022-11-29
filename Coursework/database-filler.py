@@ -1,8 +1,7 @@
 #  Database Filler
 
-from dbCon import dbCon
+import pyodbc
 from faker import Faker
-from random import randint
 
 fake = Faker(["en_UK"])
 

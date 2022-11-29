@@ -2,14 +2,19 @@
 
 from PyQt5 import QtCore, QtWidgets
 from config import X, Y
+from dbCon import dbCon
+from account_page import AccountViewPage
 import sys
 
 
 class BookingConfirmPage(object):
-    def __init__(self, dateTime, numberOfPeople, table) -> None:
+    def __init__(self, dateTime, numberOfPeople, table, userID) -> None:
         self.dateTime = dateTime
         self.numberOfPeople = numberOfPeople
         self.table = table
+        self.userID = userID
+        self.cnxn = dbCon()
+        self.cursor = self.cnxn.cursor()
         Dialog = QtWidgets.QDialog()
         self.setupUI(Dialog)
         Dialog.show()
@@ -46,9 +51,17 @@ class BookingConfirmPage(object):
     def confirm(self):
         # add booking to database
         # open an account view page
-        MainPage()
+        # MainPage()
+
+        self.cursor.execute("select max(BookingID) from Booking")
+        bookingID = self.cursor.fetchone()[0]+1
+        self.dateTime = self.dateTime.toString("yyyy-MM-dd HH:mm:ss")
+        self.cursor.execute(f"insert into Booking values ({bookingID},NULL,{self.userID},{self.table},'{self.dateTime}',{self.numberOfPeople})")
+        self.cursor.commit()
+
+        AccountViewPage(self.userID)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = BookingConfirmPage(2022, 11, 28, 14, 30, 6, 3)
+    ui = BookingConfirmPage(QtCore.QDateTime.currentDateTime(), 6, 3, 7)

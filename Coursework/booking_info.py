@@ -7,8 +7,9 @@ import sys
 
 
 class BookingInfoPage(object):
-    def __init__(self) -> None:
+    def __init__(self, userID) -> None:
         Dialog = QtWidgets.QDialog()
+        self.userID = userID
         self.setupUI(Dialog)
         Dialog.show()
         Dialog.exec()
@@ -42,9 +43,9 @@ class BookingInfoPage(object):
         self.selectTable.clicked.connect(self.select_table)
 
     def select_table(self):
-        TablePage(self.calender.selectedDate(), self.selectTime.time(), int(self.numberOfPeople.text()))
+        TablePage(self.calender.selectedDate(), self.selectTime.time(), int(self.numberOfPeople.text()), self.userID)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = BookingInfoPage()
+    ui = BookingInfoPage(7)

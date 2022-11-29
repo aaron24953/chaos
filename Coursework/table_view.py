@@ -7,9 +7,10 @@ import sys
 
 
 class TablePage(object):
-    def __init__(self, date, time, numberOfPeople) -> None:
+    def __init__(self, date, time, numberOfPeople, userID) -> None:
         self.dateTime = QtCore.QDateTime(date, time)
         self.numberOfPeople = numberOfPeople
+        self.userID = userID
         Dialog = QtWidgets.QDialog()
         self.setupUI(Dialog)
         Dialog.show()
@@ -55,7 +56,7 @@ class TablePage(object):
 
     def bookTable(self, index):
         print(index)
-        BookingConfirmPage(self.dateTime, self.numberOfPeople, index)
+        BookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID)
 
 
 if __name__ == "__main__":

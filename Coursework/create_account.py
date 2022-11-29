@@ -71,9 +71,13 @@ class AccountCreatePage(object):
         password = self.password.text()
         phone = self.phone.text()
         email = self.email.text()
-        # upload values to database
-        # cnxn = dbCon()
 
+        cnxn = dbCon()
+        cursor = cnxn.cursor()
+        cursor.execute("select MAX(CustomerID) from Customer")
+        custID = cursor.fetchone()[0] + 1
+        cursor.execute(f"insert into Customer values ('{custID}','{username}','{password}','{firstname}','{surname}','{phone}','{email}')")
+        cursor.commit()
         # go to account view page
 
 
