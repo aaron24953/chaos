@@ -58,6 +58,6 @@ def fillTable():
 
 
 if __name__ == "__main__":
-    # fillCust()
-    # fillStaff()
+    fillCust()
+    fillStaff()
     fillTable()
