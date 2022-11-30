@@ -46,6 +46,7 @@ class StaffLoginPage(object):
         self.loginButton.clicked.connect(self.book)
 
     def book(self):
+        from staff_main_page import StaffMainPage
         StaffMainPage(2)
 
 

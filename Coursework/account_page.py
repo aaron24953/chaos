@@ -37,6 +37,12 @@ class AccountViewPage(object):
             f"Name: {self.userInfo[3]} {self.userInfo[4]}\nUsername: {self.userInfo[1]}"
         )
 
+        self.createBookingButton = QtWidgets.QPushButton(Dialog)
+        self.createBookingButton.clicked.connect(self.create_booking)
+        self.createBookingButton.setText("Create Booking")
+        self.createBookingButton.setFixedSize(self.x, self.y // 12)
+        self.createBookingButton.move(0, self.y // 12)
+
         self.bookingsDisplay = QtWidgets.QTableWidget(Dialog)
         self.bookingsDisplay.setFixedSize(self.x, self.y * 5 // 6)
         self.bookingsDisplay.move(0, self.y // 6)
@@ -64,6 +70,10 @@ class AccountViewPage(object):
                 )
 
         # add membership status later
+
+    def create_booking(self):
+        from booking_info import BookingInfoPage
+        BookingInfoPage(self.userInfo[0])
 
 
 if __name__ == "__main__":

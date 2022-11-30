@@ -1,13 +1,15 @@
 from PyQt5 import QtCore, QtWidgets
 from config import X, Y
-from booking_info import BookingInfoPage
 import sys
+from dbCon import dbCon
 
 
 class LoginPage(object):
     def __init__(self) -> None:
         Dialog = QtWidgets.QDialog()
         self.setupUI(Dialog)
+        self.cnxn = dbCon()
+        self.cursor = self.cnxn.cursor()
         Dialog.show()
         Dialog.exec()
 
@@ -44,8 +46,42 @@ class LoginPage(object):
         self.loginButton.move(self.x // 3, self.y * 7 // 9)
         self.loginButton.clicked.connect(self.book)
 
+        self.invalidAcknowledgeButton = QtWidgets.QPushButton(Dialog)
+        self.invalidAcknowledgeButton.setFixedSize(self.x, self.y // 2)
+        self.invalidAcknowledgeButton.setText("Try Again")
+        self.invalidAcknowledgeButton.clicked.connect(self.try_again)
+        self.invalidAcknowledgeButton.hide()
+        self.invalidAcknowledgeButton.move(0, self.y // 2)
+
+        self.invalidLoginText = QtWidgets.QLabel(Dialog)
+        self.invalidLoginText.setFixedSize(self.x, self.y // 2)
+        self.invalidLoginText.hide()
+        self.invalidLoginText.setText("Invalid Login")
+
     def book(self):
-        BookingInfoPage(7)
+        from account_page import AccountViewPage
+        self.cursor.execute(f"select CustomerID from customer where Username = '{self.username.text()}' and password = '{self.password.text()}'")
+        user = self.cursor.fetchone()
+        if user:
+            AccountViewPage(int(user[0]))
+        else:
+            self.invalid_login()
+
+    def invalid_login(self):
+        self.invalidAcknowledgeButton.show()
+        self.invalidLoginText.show()
+        self.loginText.hide()
+        self.username.hide()
+        self.password.hide()
+        self.loginButton.hide()
+
+    def try_again(self):
+        self.invalidAcknowledgeButton.hide()
+        self.invalidLoginText.hide()
+        self.loginText.show()
+        self.username.show()
+        self.password.show()
+        self.loginButton.show()
 
 
 if __name__ == "__main__":

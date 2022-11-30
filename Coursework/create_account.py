@@ -80,7 +80,9 @@ class AccountCreatePage(object):
             f"insert into Customer values ('{custID}','{username}','{password}','{firstname}','{surname}','{phone}','{email}')"
         )
         cursor.commit()
-        # go to account view page
+
+        from account_page import AccountViewPage
+        AccountViewPage(custID)
 
 
 if __name__ == "__main__":

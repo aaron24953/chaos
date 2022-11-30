@@ -54,7 +54,11 @@ class BookingConfirmPage(object):
         # MainPage()
 
         self.cursor.execute("select max(BookingID) from Booking")
-        bookingID = self.cursor.fetchone()[0] + 1
+        bookingID = self.cursor.fetchone()[0]
+        if bookingID:
+            bookingID += 1
+        else:
+            bookingID = 0
         self.dateTime = self.dateTime.toString("yyyy-MM-dd HH:mm:ss")
         self.cursor.execute(
             f"insert into Booking values ({bookingID},NULL,{self.userID},{self.table},'{self.dateTime}',{self.numberOfPeople},NULL)"
