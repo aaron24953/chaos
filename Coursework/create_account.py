@@ -76,7 +76,9 @@ class AccountCreatePage(object):
         cursor = cnxn.cursor()
         cursor.execute("select MAX(CustomerID) from Customer")
         custID = cursor.fetchone()[0] + 1
-        cursor.execute(f"insert into Customer values ('{custID}','{username}','{password}','{firstname}','{surname}','{phone}','{email}')")
+        cursor.execute(
+            f"insert into Customer values ('{custID}','{username}','{password}','{firstname}','{surname}','{phone}','{email}')"
+        )
         cursor.commit()
         # go to account view page
 

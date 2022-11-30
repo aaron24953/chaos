@@ -1,12 +1,12 @@
-# table view page page
+# staff table view page page
 
 from PyQt5 import QtCore, QtWidgets
 from config import X, Y
-from booking_confirm_page import BookingConfirmPage
+from staff_booking_confirm_page import StaffBookingConfirmPage
 import sys
 
 
-class TablePage(object):
+class StaffTableViewPage(object):
     def __init__(self, date, time, numberOfPeople, userID) -> None:
         self.dateTime = QtCore.QDateTime(date, time)
         self.numberOfPeople = numberOfPeople
@@ -41,7 +41,7 @@ class TablePage(object):
             )
             self.tables[i].setText(f"Table {i+1}")
 
-        ## i hate this but python is wierd and i cant find another way to do it
+        # i hate this but python is wierd and i cant find another way to do it
         self.tables[0].clicked.connect(lambda: self.bookTable(0 + 1))
         self.tables[1].clicked.connect(lambda: self.bookTable(1 + 1))
         self.tables[2].clicked.connect(lambda: self.bookTable(2 + 1))
@@ -54,10 +54,9 @@ class TablePage(object):
         self.tables[9].clicked.connect(lambda: self.bookTable(9 + 1))
 
     def bookTable(self, index):
-        print(index)
-        BookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID)
+        StaffBookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID)
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = TablePage(2022, 11, 28, 14, 30, 6)
+    ui = StaffTableViewPage(2022, 11, 28, 14, 30, 6)

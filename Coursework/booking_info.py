@@ -43,7 +43,12 @@ class BookingInfoPage(object):
         self.selectTable.clicked.connect(self.select_table)
 
     def select_table(self):
-        TablePage(self.calender.selectedDate(), self.selectTime.time(), int(self.numberOfPeople.text()), self.userID)
+        TablePage(
+            self.calender.selectedDate(),
+            self.selectTime.time(),
+            int(self.numberOfPeople.text()),
+            self.userID,
+        )
 
 
 if __name__ == "__main__":

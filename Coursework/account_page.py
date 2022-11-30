@@ -31,13 +31,15 @@ class AccountViewPage(object):
         Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
         self.nameDisplay = QtWidgets.QLabel(Dialog)
-        self.nameDisplay.setFixedSize(self.x, self.y//6)
+        self.nameDisplay.setFixedSize(self.x, self.y // 6)
         self.nameDisplay.setAlignment(QtCore.Qt.AlignHCenter)
-        self.nameDisplay.setText(f"Name: {self.userInfo[3]} {self.userInfo[4]}\nUsername: {self.userInfo[1]}")
+        self.nameDisplay.setText(
+            f"Name: {self.userInfo[3]} {self.userInfo[4]}\nUsername: {self.userInfo[1]}"
+        )
 
         self.bookingsDisplay = QtWidgets.QTableWidget(Dialog)
-        self.bookingsDisplay.setFixedSize(self.x, self.y*5//6)
-        self.bookingsDisplay.move(0, self.y//6)
+        self.bookingsDisplay.setFixedSize(self.x, self.y * 5 // 6)
+        self.bookingsDisplay.move(0, self.y // 6)
         self.bookingsDisplay.setColumnCount(4)
         columnNames = ["Date", "Time", "Table", "Number of People"]
         columnProportions = [20, 15, 20, 35]
@@ -45,7 +47,9 @@ class AccountViewPage(object):
         for i in range(len(columnNames)):
             self.bookingsDisplay.setColumnWidth(i, columnProportions[i] * self.x // 100)
 
-        self.cursor.execute(f"select Time, TableID, numberOfPeople from Booking where CustomerID = {self.userInfo[0]}")
+        self.cursor.execute(
+            f"select Time, TableID, numberOfPeople from Booking where CustomerID = {self.userInfo[0]}"
+        )
         self.bookings = self.cursor.fetchall()
         self.bookingsDisplay.setRowCount(len(self.bookings))
         for i in range(len(self.bookings)):
@@ -55,7 +59,9 @@ class AccountViewPage(object):
             self.bookingsDisplay.setItem(i, 0, QtWidgets.QTableWidgetItem(date))
             self.bookingsDisplay.setItem(i, 1, QtWidgets.QTableWidgetItem(time))
             for j in range(1, len(self.bookings[i])):
-                self.bookingsDisplay.setItem(i, j+1, QtWidgets.QTableWidgetItem(str(self.bookings[i][j])))
+                self.bookingsDisplay.setItem(
+                    i, j + 1, QtWidgets.QTableWidgetItem(str(self.bookings[i][j]))
+                )
 
         # add membership status later
 
