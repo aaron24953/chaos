@@ -8,7 +8,8 @@ import sys
 
 
 class StaffBookingConfirmPage(object):
-    def __init__(self, dateTime, numberOfPeople, table, customerID) -> None:
+    def __init__(self, dateTime, numberOfPeople, table, customerID, customerName) -> None:
+        self.customerName = customerName
         self.dateTime = dateTime
         self.numberOfPeople = numberOfPeople
         self.table = table
@@ -49,10 +50,15 @@ class StaffBookingConfirmPage(object):
 
         self.cursor.execute("select max(BookingID) from Booking")
         bookingID = self.cursor.fetchone()[0] + 1
-        self.dateTime = self.dateTime.toString("yyyy-MM-dd HH:mm:ss")
-        self.cursor.execute(
-            f"insert into Booking values ({bookingID},NULL,{self.customerID},{self.table},'{self.dateTime}',{self.numberOfPeople})"
-        )
+        self.dateTimeString = self.dateTime.toString("yyyy-MM-dd HH:mm:ss")
+        if self.customerID != -1:
+            self.cursor.execute(
+                f"insert into Booking values ({bookingID},NULL,{self.customerID},{self.table},'{self.dateTimeString}',{self.numberOfPeople},NULL)"
+            )
+        else:
+            self.cursor.execute(
+                f"insert into Booking values ({bookingID},NULL,{self.customerID},{self.table},'{self.dateTimeString}',{self.numberOfPeople},'{self.customerName}')"
+            )
         self.cursor.commit()
 
         StaffMainPage(self.customerID)
@@ -60,4 +66,4 @@ class StaffBookingConfirmPage(object):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    ui = StaffBookingConfirmPage(QtCore.QDateTime.currentDateTime(), 6, 3, 7)
+    ui = StaffBookingConfirmPage(QtCore.QDateTime.currentDateTime(), 6, 3, 7, "")

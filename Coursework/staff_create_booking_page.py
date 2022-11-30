@@ -98,6 +98,7 @@ class StaffCreateBookingPage(object):
             self.selectTime.time(),
             int(self.numberOfPeople.text()),
             self.userID,
+            self.customerFirstnameBox.text() + " " + self.customerSurnameBox.text()
         )
 
 

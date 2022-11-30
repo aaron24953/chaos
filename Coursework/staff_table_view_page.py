@@ -7,8 +7,9 @@ import sys
 
 
 class StaffTableViewPage(object):
-    def __init__(self, date, time, numberOfPeople, userID) -> None:
+    def __init__(self, date, time, numberOfPeople, userID, customerName) -> None:
         self.dateTime = QtCore.QDateTime(date, time)
+        self.customerName = customerName
         self.numberOfPeople = numberOfPeople
         self.userID = userID
         Dialog = QtWidgets.QDialog()
@@ -54,7 +55,7 @@ class StaffTableViewPage(object):
         self.tables[9].clicked.connect(lambda: self.bookTable(9 + 1))
 
     def bookTable(self, index):
-        StaffBookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID)
+        StaffBookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID, self.customerName)
 
 
 if __name__ == "__main__":

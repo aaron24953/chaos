@@ -7,6 +7,7 @@ def dbCon():
         cs = DBCSTRING
         print("connecting")
         cnxn = pyodbc.connect(cs)
+        print("Connected!")
         return cnxn
     except pyodbc.DatabaseError as err:
         print(err)

@@ -57,7 +57,7 @@ class BookingConfirmPage(object):
         bookingID = self.cursor.fetchone()[0] + 1
         self.dateTime = self.dateTime.toString("yyyy-MM-dd HH:mm:ss")
         self.cursor.execute(
-            f"insert into Booking values ({bookingID},NULL,{self.userID},{self.table},'{self.dateTime}',{self.numberOfPeople})"
+            f"insert into Booking values ({bookingID},NULL,{self.userID},{self.table},'{self.dateTime}',{self.numberOfPeople},NULL)"
         )
         self.cursor.commit()
 

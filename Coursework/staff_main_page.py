@@ -66,6 +66,27 @@ class StaffMainPage(object):
             item.setTextAlignment(QtCore.Qt.AlignCenter)
             self.bookingsDisplay.setItem(i, j + 2, item)
 
+        numIDBookings = len(self.bookings)
+        self.cursor.execute(
+            "select Time, BookingID, TableID, numberOfPeople, CustomerID, Name from Booking where CustomerID = -1"
+        )
+        self.bookings = self.cursor.fetchall()
+        self.bookingsDisplay.setRowCount(numIDBookings + len(self.bookings))
+        for i in range(len(self.bookings)):
+            date = str(self.bookings[i][0])[:10]
+            time = str(self.bookings[i][0])[-8:-3]
+            date = f"{date[-2:]}/{date[-5:-3]}/{date[2:4]}"
+            item = QtWidgets.QTableWidgetItem(date)
+            item.setTextAlignment(QtCore.Qt.AlignCenter)
+            self.bookingsDisplay.setItem(i + numIDBookings, 0, item)
+            item = QtWidgets.QTableWidgetItem(time)
+            item.setTextAlignment(QtCore.Qt.AlignCenter)
+            self.bookingsDisplay.setItem(i + numIDBookings, 1, item)
+            for j in range(1, len(self.bookings[i])):
+                item = QtWidgets.QTableWidgetItem(str(self.bookings[i][j]))
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                self.bookingsDisplay.setItem(i + numIDBookings, j + 1, item)
+
         self.createBookingButton = QtWidgets.QPushButton(Dialog)
         self.createBookingButton.setFixedSize(self.x // 2, self.y // 3)
         self.createBookingButton.move(self.x // 2, 0)
