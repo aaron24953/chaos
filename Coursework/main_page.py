@@ -9,33 +9,35 @@ import sys
 
 class MainPage(object):
     def __init__(self) -> None:
-        Dialog = QtWidgets.QDialog()
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.Dialog = QtWidgets.QDialog()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog: QtWidgets.QDialog):
+    def setupUI(self):
         self.x = X // 3
         self.y = Y // 2
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Main Menu")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Main Menu")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.createButton = QtWidgets.QPushButton(Dialog)
+        self.createButton = QtWidgets.QPushButton(self.Dialog)
         self.createButton.setFixedSize(self.x, self.y // 2)
         self.createButton.move(0, self.y // 2)
         self.createButton.setText("New Account")
         self.createButton.clicked.connect(self.create_account)
 
-        self.LoginButton = QtWidgets.QPushButton(Dialog)
+        self.LoginButton = QtWidgets.QPushButton(self.Dialog)
         self.LoginButton.setFixedSize(self.x, self.y // 2)
         self.LoginButton.setText("Login")
         self.LoginButton.clicked.connect(self.login)
 
     def login(self):
+        self.Dialog.close()
         LoginPage()
 
     def create_account(self):
+        self.Dialog.close()
         AccountCreatePage()
 
 

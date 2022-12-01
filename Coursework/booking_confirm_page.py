@@ -15,34 +15,34 @@ class BookingConfirmPage(object):
         self.userID = userID
         self.cnxn = dbCon()
         self.cursor = self.cnxn.cursor()
-        Dialog = QtWidgets.QDialog()
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.Dialog = QtWidgets.QDialog()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog: QtWidgets.QDialog):
+    def setupUI(self):
         self.x = X // 6
         self.y = Y // 4
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Confirm Booking")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Confirm Booking")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.numberOfPeopleDisplay = QtWidgets.QLabel(Dialog)
+        self.numberOfPeopleDisplay = QtWidgets.QLabel(self.Dialog)
         self.numberOfPeopleDisplay.setFixedSize(self.x, self.y // 5)
         self.numberOfPeopleDisplay.move(0, self.y // 5)
         self.numberOfPeopleDisplay.setText(f"Number Of People: {self.numberOfPeople}")
 
-        self.dateTimeDisplay = QtWidgets.QDateTimeEdit(Dialog)
+        self.dateTimeDisplay = QtWidgets.QDateTimeEdit(self.Dialog)
         self.dateTimeDisplay.setFixedSize(self.x, self.y // 5)
         self.dateTimeDisplay.setDateTime(self.dateTime)
         self.dateTimeDisplay.setReadOnly(True)
 
-        self.tableDisplay = QtWidgets.QLabel(Dialog)
+        self.tableDisplay = QtWidgets.QLabel(self.Dialog)
         self.tableDisplay.setFixedSize(self.x, self.y // 5)
         self.tableDisplay.move(0, self.y * 2 // 5)
         self.tableDisplay.setText(f"Table: {self.table}")
 
-        self.confirmButton = QtWidgets.QPushButton(Dialog)
+        self.confirmButton = QtWidgets.QPushButton(self.Dialog)
         self.confirmButton.setFixedSize(self.x, self.y * 2 // 5)
         self.confirmButton.move(0, self.y * 3 // 5)
         self.confirmButton.setText("Confirm Booking")
@@ -64,7 +64,7 @@ class BookingConfirmPage(object):
             f"insert into Booking values ({bookingID},NULL,{self.userID},{self.table},'{self.dateTime}',{self.numberOfPeople},NULL)"
         )
         self.cursor.commit()
-
+        self.Dialog.close()
         AccountViewPage(self.userID)
 
 

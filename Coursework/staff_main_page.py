@@ -8,22 +8,22 @@ from config import X, Y
 
 class StaffMainPage(object):
     def __init__(self, staffID) -> None:
-        Dialog = QtWidgets.QDialog()
+        self.Dialog = QtWidgets.QDialog()
         self.cnxn = dbCon()
         self.staffID = staffID
         self.cursor = self.cnxn.cursor()
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog: QtWidgets.QDialog):
+    def setupUI(self):
         self.x = X * 2 // 3
         self.y = Y
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Main Menu")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Main Menu")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.bookingsDisplay = QtWidgets.QTableWidget(Dialog)
+        self.bookingsDisplay = QtWidgets.QTableWidget(self.Dialog)
         self.bookingsDisplay.setFixedSize(self.x, self.y * 2 // 3)
         self.bookingsDisplay.move(0, self.y // 3)
         columnNames = [
@@ -87,22 +87,24 @@ class StaffMainPage(object):
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.bookingsDisplay.setItem(i + numIDBookings, j + 1, item)
 
-        self.createBookingButton = QtWidgets.QPushButton(Dialog)
+        self.createBookingButton = QtWidgets.QPushButton(self.Dialog)
         self.createBookingButton.setFixedSize(self.x // 2, self.y // 3)
         self.createBookingButton.move(self.x // 2, 0)
         self.createBookingButton.setText("Create Booking")
         self.createBookingButton.clicked.connect(self.create_booking)
 
-        self.addMembershipButton = QtWidgets.QPushButton(Dialog)
+        self.addMembershipButton = QtWidgets.QPushButton(self.Dialog)
         self.addMembershipButton.setFixedSize(self.x // 2, self.y // 3)
         self.addMembershipButton.setText("Add Membership")
         self.addMembershipButton.clicked.connect(self.add_membership)
 
     def create_booking(self):
+        self.Dialog.close()
         from staff_create_booking_page import StaffCreateBookingPage
         StaffCreateBookingPage(self.staffID)
 
     def add_membership(self):
+        self.Dialog.close()
         from add_membership_page import AddMembershipPage
         AddMembershipPage()
 

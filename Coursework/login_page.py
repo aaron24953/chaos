@@ -6,63 +6,64 @@ from dbCon import dbCon
 
 class LoginPage(object):
     def __init__(self) -> None:
-        Dialog = QtWidgets.QDialog()
-        self.setupUI(Dialog)
+        self.Dialog = QtWidgets.QDialog()
+        self.setupUI()
         self.cnxn = dbCon()
         self.cursor = self.cnxn.cursor()
-        Dialog.show()
-        Dialog.exec()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog: QtWidgets.QDialog):
+    def setupUI(self):
         self.x = X // 6
         self.y = Y // 4
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Login")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Login")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.loginText = QtWidgets.QLabel(Dialog)
+        self.loginText = QtWidgets.QLabel(self.Dialog)
         self.loginText.setText("Log In")
         self.loginText.setAlignment(QtCore.Qt.AlignCenter)
         self.loginText.resize(self.x, self.y * 3 // 9)
         self.loginText.move(0, 0)
         self.loginText.setStyleSheet(f"font-size: {self.y // 4}px")
 
-        self.username = QtWidgets.QLineEdit(Dialog)
+        self.username = QtWidgets.QLineEdit(self.Dialog)
         self.username.setPlaceholderText("Username")
         self.username.setAlignment(QtCore.Qt.AlignCenter)
         self.username.resize(self.x, self.y // 4)
         self.username.move(0, self.y * 3 // 9)
 
-        self.password = QtWidgets.QLineEdit(Dialog)
+        self.password = QtWidgets.QLineEdit(self.Dialog)
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.password.setPlaceholderText("Password")
         self.password.setAlignment(QtCore.Qt.AlignCenter)
         self.password.resize(self.x, self.y // 4)
         self.password.move(0, self.y * 5 // 9)
 
-        self.loginButton = QtWidgets.QPushButton(Dialog)
+        self.loginButton = QtWidgets.QPushButton(self.Dialog)
         self.loginButton.setFixedSize(self.x // 3, self.y * 2 // 9)
         self.loginButton.setText("Login")
         self.loginButton.move(self.x // 3, self.y * 7 // 9)
         self.loginButton.clicked.connect(self.book)
 
-        self.invalidAcknowledgeButton = QtWidgets.QPushButton(Dialog)
+        self.invalidAcknowledgeButton = QtWidgets.QPushButton(self.Dialog)
         self.invalidAcknowledgeButton.setFixedSize(self.x, self.y // 2)
         self.invalidAcknowledgeButton.setText("Try Again")
         self.invalidAcknowledgeButton.clicked.connect(self.try_again)
         self.invalidAcknowledgeButton.hide()
         self.invalidAcknowledgeButton.move(0, self.y // 2)
 
-        self.invalidLoginText = QtWidgets.QLabel(Dialog)
+        self.invalidLoginText = QtWidgets.QLabel(self.Dialog)
         self.invalidLoginText.setFixedSize(self.x, self.y // 2)
         self.invalidLoginText.hide()
         self.invalidLoginText.setText("Invalid Login")
 
     def book(self):
-        from account_page import AccountViewPage
         self.cursor.execute(f"select CustomerID from customer where Username = '{self.username.text()}' and password = '{self.password.text()}'")
         user = self.cursor.fetchone()
         if user:
+            self.Dialog.close()
+            from account_page import AccountViewPage
             AccountViewPage(int(user[0]))
         else:
             self.invalid_login()

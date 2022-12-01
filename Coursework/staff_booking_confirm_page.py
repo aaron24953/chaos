@@ -16,29 +16,29 @@ class StaffBookingConfirmPage(object):
         self.customerID = customerID
         self.cnxn = dbCon()
         self.cursor = self.cnxn.cursor()
-        Dialog = QtWidgets.QDialog()
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.Dialog = QtWidgets.QDialog()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog: QtWidgets.QDialog):
+    def setupUI(self):
         self.x = X // 6
         self.y = Y // 4
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Confirm Booking")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Confirm Booking")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.dateTimeDisplay = QtWidgets.QDateTimeEdit(Dialog)
+        self.dateTimeDisplay = QtWidgets.QDateTimeEdit(self.Dialog)
         self.dateTimeDisplay.setFixedSize(self.x, self.y // 5)
         self.dateTimeDisplay.setDateTime(self.dateTime)
         self.dateTimeDisplay.setReadOnly(True)
 
-        self.informationDisplay = QtWidgets.QLabel(Dialog)
+        self.informationDisplay = QtWidgets.QLabel(self.Dialog)
         self.informationDisplay.setFixedSize(self.x, self.y * 2 // 5)
         self.informationDisplay.move(0, self.y // 5)
         self.informationDisplay.setText(f"Table: {self.table}\nCustomer ID: {self.customerID}\nNumber Of People: {self.numberOfPeople}")
 
-        self.confirmButton = QtWidgets.QPushButton(Dialog)
+        self.confirmButton = QtWidgets.QPushButton(self.Dialog)
         self.confirmButton.setFixedSize(self.x, self.y * 2 // 5)
         self.confirmButton.move(0, self.y * 3 // 5)
         self.confirmButton.setText("Confirm Booking")
@@ -61,6 +61,7 @@ class StaffBookingConfirmPage(object):
             )
         self.cursor.commit()
 
+        self.Dialog.close()
         StaffMainPage(self.customerID)
 
 

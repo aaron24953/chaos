@@ -12,20 +12,20 @@ class StaffTableViewPage(object):
         self.customerName = customerName
         self.numberOfPeople = numberOfPeople
         self.userID = userID
-        Dialog = QtWidgets.QDialog()
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.Dialog = QtWidgets.QDialog()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog):
+    def setupUI(self):
         self.x = X
         self.y = Y
 
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("Tables")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("Tables")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.tables = [QtWidgets.QPushButton(Dialog) for i in range(10)]
+        self.tables = [QtWidgets.QPushButton(self.Dialog) for i in range(10)]
 
         for i in range(4):
             self.tables[i].setFixedSize(self.x // 6, self.y // 6)
@@ -55,6 +55,7 @@ class StaffTableViewPage(object):
         self.tables[9].clicked.connect(lambda: self.bookTable(9 + 1))
 
     def bookTable(self, index):
+        self.Dialog.close()
         StaffBookingConfirmPage(self.dateTime, self.numberOfPeople, index, self.userID, self.customerName)
 
 

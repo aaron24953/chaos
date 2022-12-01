@@ -10,7 +10,7 @@ from dbCon import dbCon
 
 class AccountViewPage(object):
     def __init__(self, userID) -> None:
-        Dialog = QtWidgets.QDialog()
+        self.Dialog = QtWidgets.QDialog()
 
         self.cnxn = dbCon()
         self.cursor = self.cnxn.cursor()
@@ -18,32 +18,32 @@ class AccountViewPage(object):
 
         self.userInfo = self.cursor.fetchone()
 
-        self.setupUI(Dialog)
-        Dialog.show()
-        Dialog.exec()
+        self.setupUI()
+        self.Dialog.show()
+        self.Dialog.exec()
 
-    def setupUI(self, Dialog):
+    def setupUI(self):
         self.x = X // 3
         self.y = Y
 
-        Dialog.resize(self.x, self.y)
-        Dialog.setWindowTitle("My Account")
-        Dialog.setStyleSheet("font-family: Comic Sans MS;")
+        self.Dialog.resize(self.x, self.y)
+        self.Dialog.setWindowTitle("My Account")
+        self.Dialog.setStyleSheet("font-family: Comic Sans MS;")
 
-        self.nameDisplay = QtWidgets.QLabel(Dialog)
+        self.nameDisplay = QtWidgets.QLabel(self.Dialog)
         self.nameDisplay.setFixedSize(self.x, self.y // 6)
         self.nameDisplay.setAlignment(QtCore.Qt.AlignHCenter)
         self.nameDisplay.setText(
             f"Name: {self.userInfo[3]} {self.userInfo[4]}\nUsername: {self.userInfo[1]}"
         )
 
-        self.createBookingButton = QtWidgets.QPushButton(Dialog)
+        self.createBookingButton = QtWidgets.QPushButton(self.Dialog)
         self.createBookingButton.clicked.connect(self.create_booking)
         self.createBookingButton.setText("Create Booking")
         self.createBookingButton.setFixedSize(self.x, self.y // 12)
         self.createBookingButton.move(0, self.y // 12)
 
-        self.bookingsDisplay = QtWidgets.QTableWidget(Dialog)
+        self.bookingsDisplay = QtWidgets.QTableWidget(self.Dialog)
         self.bookingsDisplay.setFixedSize(self.x, self.y * 5 // 6)
         self.bookingsDisplay.move(0, self.y // 6)
         self.bookingsDisplay.setColumnCount(4)
@@ -72,6 +72,7 @@ class AccountViewPage(object):
         # add membership status later
 
     def create_booking(self):
+        self.Dialog.close()
         from booking_info import BookingInfoPage
         BookingInfoPage(self.userInfo[0])
 
