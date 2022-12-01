@@ -34,7 +34,7 @@ class AccountViewPage(object):
         self.nameDisplay.setFixedSize(self.x, self.y // 6)
         self.nameDisplay.setAlignment(QtCore.Qt.AlignHCenter)
         self.nameDisplay.setText(
-            f"Name: {self.userInfo[3]} {self.userInfo[4]}\nUsername: {self.userInfo[1]}"
+            f"Hi {self.userInfo[3]},\nUsername: {self.userInfo[1]}"
         )
 
         self.createBookingButton = QtWidgets.QPushButton(self.Dialog)
