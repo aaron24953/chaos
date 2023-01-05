@@ -11,7 +11,7 @@ def dbCon():
         return cnxn
     except pyodbc.DatabaseError as err:
         print(err)
-        return -1
+        return err
 
 
 if __name__ == "__main__":

@@ -1,10 +1,15 @@
 Things To Do:
 
-1) rewrite all pages to be singular and take a bool to denote staff vs customer
+1) rewrite all pages to be singular and take a bool to denote staff vs customer X
 2) add search functionality
 3) fix named bookings ,/
 4) login actually logs in ,/ for cust
 5) add staff account create + create for cust
+6) make it look nice
+7) create account from login
+8) error stuff
+9) validation
+10) confirm page
 
 ++
 

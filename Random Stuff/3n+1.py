@@ -1,8 +1,8 @@
 steps = 0
 maxSteps = 0
 # 2**1000000-1 13420758
-start = 2**68 + 1
-end = 2**69
+start = 24# 2**68 + 1
+end = 29# 2**69
 if start % 2 != 1:
     print("must be odd")
 for i in range(start, end + 1, 2):

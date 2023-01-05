@@ -185,7 +185,7 @@ def getEk(particles):
 
 def main():
     font = pygame.font.SysFont("Arial", 30)
-    FPS = 60
+    FPS = 30
     UPF = 10
     uNum = 0
     cDelay = -1
