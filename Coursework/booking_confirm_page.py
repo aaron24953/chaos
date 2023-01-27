@@ -55,7 +55,7 @@ class BookingConfirmPage(object):
 
         self.cursor.execute("select max(BookingID) from Booking")
         bookingID = self.cursor.fetchone()[0]
-        if bookingID:
+        if bookingID >= 0:
             bookingID += 1
         else:
             bookingID = 0
