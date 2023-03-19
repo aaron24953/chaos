@@ -33,11 +33,9 @@ class MainPage(object):
         self.LoginButton.clicked.connect(self.login)
 
     def login(self):
-        self.Dialog.close()
         LoginPage()
 
     def create_account(self):
-        self.Dialog.close()
         AccountCreatePage()
 
 
