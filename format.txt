@@ -1,0 +1,326 @@
+"Braum
+the Heart of the Freljord"
+"Ornn
+The Fire below the Mountain"
+"Jhin
+the Virtuoso"
+"Bard
+the Wandering Caretaker"
+"Nunu & Willump
+the Boy and His Yeti"
+"Ivern
+the Green Father"
+"Alistar
+the Minotaur"
+"Galio
+the Colossus"
+"Rakan
+The Charmer"
+"Taric
+the Shield of Valoran"
+"Rell
+the Iron Maiden"
+"Jarvan IV
+the Exemplar of Demacia"
+"Shen
+the Eye of Twilight"
+"Volibear
+the Relentless Storm"
+"Nautilus
+the Titan of the Depths"
+"Sejuani
+Fury of the North"
+"Ziggs
+the Hexplosives Expert"
+"Lissandra
+the Ice Witch"
+"Orianna
+the Lady of Clockwork"
+"Aatrox
+the Darkin Blade"
+"Twisted Fate
+the Card Master"
+"Neeko
+the Curious Chameleon"
+"Fiddlesticks
+the Ancient Fear"
+"Ahri
+the Nine-Tailed Fox"
+"Ryze
+the Rune Mage"
+"Cho'Gath
+the Terror of the Void"
+"Garen
+The Might of Demacia"
+"Nasus
+the Curator of the Sands"
+"Gragas
+the Rabble Rouser"
+"Sion
+The Undead Juggernaut"
+"Pantheon
+the Unbreakable Spear"
+"Maokai
+the Twisted Treant"
+"Swain
+the Noxian Grand General"
+"Xin Zhao
+the Seneschal of Demacia"
+"Thresh
+the Chain Warden"
+"Viktor
+the Machine Herald"
+"Urgot
+the Dreadnought"
+"K'Sante
+The Pride of Nazumah"
+"Tahm Kench
+The River King"
+"Kalista
+the Spear of Vengeance"
+"Aphelios
+the Weapon of the Faithful"
+"Miss Fortune
+the Bounty Hunter"
+"Caitlyn
+the Sheriff of Piltover"
+"Kindred
+The Eternal Hunters"
+"Kennen
+the Heart of the Tempest"
+"Quinn
+Demacia's Wings"
+"Leona
+the Radiant Dawn"
+"Poppy
+Keeper of the Hammer"
+"Dr. Mundo
+the Madman of Zaun"
+"Malphite
+Shard of the Monolith"
+"Shyvana
+the Half-Dragon"
+"Taliyah
+the Stoneweaver"
+"Anivia
+the Cryophoenix"
+"Azir
+the Emperor of the Sands"
+"Vel'Koz
+the Eye of the Void"
+"Xerath
+the Magus Ascendant"
+"Renekton
+the Butcher of the Sands"
+"Jax
+Grandmaster at Arms"
+"Kled
+the Cantankerous Cavalier"
+"Teemo
+the Swift Scout"
+"Gnar
+the Missing Link"
+"Singed
+the Mad Chemist"
+"Olaf
+the Berserker"
+"Karthus
+the Deathsinger"
+"Ezreal
+the Prodigal Explorer"
+"Samira
+the Desert Rose"
+"Vex
+the Gloomist"
+"Skarner
+the Crystal Vanguard"
+"Yorick
+Shepherd of Souls"
+"Trundle
+the Troll King"
+"Rammus
+the Armordillo"
+"Rek'Sai
+the Void Burrower"
+"Elise
+the Spider Queen"
+"Warwick
+the Uncaged Wrath of Zaun"
+"Corki
+the Daring Bombardier"
+"Zac
+the Secret Weapon"
+"Udyr
+the Spirit Walker"
+"Mordekaiser
+the Iron Revenant"
+"Illaoi
+the Kraken Priestess"
+"Wukong
+the Monkey King"
+"Aurelion Sol
+The Star Forger"
+"Evelynn
+Agony's Embrace"
+"Malzahar
+the Prophet of the Void"
+"Renata Glasc
+the Chem-Baroness"
+"Milio
+The Gentle Flame"
+"Karma
+the Enlightened One"
+"Lillia
+the Bashful Bloom"
+"Seraphine
+the Starry-Eyed Songstress"
+"Kayle
+the Righteous"
+"Jayce
+the Defender of Tomorrow"
+"Lee Sin
+the Blind Monk"
+"Nocturne
+the Eternal Nightmare"
+"Rumble
+the Mechanized Menace"
+"Vi
+the Piltover Enforcer"
+"Sett
+the Boss"
+"Talon
+the Blade's Shadow"
+"Varus
+the Arrow of Retribution"
+"Ashe
+the Frost Archer"
+"Janna
+the Storm's Fury"
+"Sona
+Maven of the Strings"
+"Soraka
+the Starchild"
+"Lulu
+the Fae Sorceress"
+"Brand
+the Burning Vengeance"
+"Heimerdinger
+the Revered Inventor"
+"Jinx
+the Loose Cannon"
+"Zyra
+Rise of the Thorns"
+"Kassadin
+the Void Walker"
+"Sivir
+the Battle Mistress"
+"Zilean
+the Chronokeeper"
+"Syndra
+the Dark Sovereign"
+"Cassiopeia
+the Serpent's Embrace"
+"Tristana
+the Yordle Gunner"
+"Veigar
+the Tiny Master of Evil"
+"Amumu
+the Sad Mummy"
+"Graves
+the Outlaw"
+"Nami
+the Tidecaller"
+"Lucian
+the Purifier"
+"Zoe
+the Aspect of Twilight"
+"Diana
+Scorn of the Moon"
+"Kai'Sa
+Daughter of the Void"
+"Kog'Maw
+the Mouth of the Abyss"
+"Lux
+the Lady of Luminosity"
+"Zeri
+The Spark of Zaun"
+"Irelia
+the Blade Dancer"
+"Nidalee
+the Bestial Huntress"
+"Xayah
+the Rebel"
+"Vladimir
+the Crimson Reaper"
+"Draven
+the Glorious Executioner"
+"Pyke
+the Bloodharbor Ripper"
+"Annie
+the Dark Child"
+"Gangplank
+the Saltwater Scourge"
+"Gwen
+The Hallowed Seamstress"
+"Viego
+The Ruined King"
+"Rengar
+the Pridestalker"
+"Kha'Zix
+the Voidreaver"
+"Yasuo
+the Unforgiven"
+"Ekko
+the Boy Who Shattered Time"
+"Katarina
+the Sinister Blade"
+"Twitch
+the Plague Rat"
+"Hecarim
+the Shadow of War"
+"LeBlanc
+the Deceiver"
+"Morgana
+the Fallen"
+"Blitzcrank
+the Great Steam Golem"
+"Nilah
+the Joy Unbound"
+"Bel'Veth
+the Empress of the Void"
+"Darius
+the Hand of Noxus"
+"Camille
+the Steel Shadow"
+"Akali
+the Rogue Assassin"
+"Fizz
+the Tidal Trickster"
+"Zed
+the Master of Shadows"
+"Qiyana
+Empress of the Elements"
+"Senna
+the Redeemer"
+"Sylas
+the Unshackled"
+"Riven
+the Exile"
+"Tryndamere
+the Barbarian King"
+"Akshan
+the Rogue Sentinel"
+"Vayne
+the Night Hunter"
+"Yuumi
+the Magical Cat"
+"Shaco
+the Demon Jester"
+"Master Yi
+the Wuju Bladesman"
+"Yone
+the Unforgotten"
+"Kayn
+the Shadow Reaper"
+"Fiora
+the Grand Duelist"
