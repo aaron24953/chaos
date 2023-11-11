@@ -1,0 +1,1066 @@
+Item	Win %	Pick %	Item Synergies	Champion Synergies
+LoL Boots
+Boots
+36 %	2.8 %
+
+warwickluxmordekaiserneekoyasuo
+LoL Faerie Charm
+Faerie Charm
+43.8 %	0.9 %
+
+ivernkindredseraphinegarenmordekaiser
+LoL Rejuvenation Bead
+Rejuvenation Bead
+43.6 %	0.1 %
+
+sorakaleonakindredmissfortunejhin
+LoL Giant's Belt
+Giant's Belt
+47.4 %	3.3 %
+
+swaindrmundomissfortunezyramorgana
+LoL Cloak of Agility
+Cloak of Agility
+44.1 %	3.9 %
+
+jhinmordekaiserkindredgarenlux
+LoL Blasting Wand
+Blasting Wand
+47.6 %	2.8 %
+
+swainzyramorganamalzaharbrand
+LoL Sapphire Crystal
+Sapphire Crystal
+44.7 %	0.2 %
+
+leonanautilusamumublitzcrankjhin
+LoL Ruby Crystal
+Ruby Crystal
+46.4 %	5.2 %
+
+kindredswainillaoimissfortunemalzahar
+LoL Cloth Armor
+Cloth Armor
+46.8 %	3.9 %
+
+missfortunerellkindredamumumalphite
+LoL Chain Vest
+Chain Vest
+47.1 %	2.8 %
+
+amumumordekaisermissfortunegarenwarwick
+LoL Null-Magic Mantle
+Null-Magic Mantle
+45.5 %	2.1 %
+
+sionillaoiswainmordekaisermissfortune
+LoL Long Sword
+Long Sword
+44 %	10.8 %
+
+yorickmordekaisernocturnekindredillaoi
+LoL Pickaxe
+Pickaxe
+47.5 %	3.1 %
+
+illaoikindredjhinnocturnegaren
+LoL B. F. Sword
+B. F. Sword
+55.3 %	2.5 %
+
+missfortunemordekaiserkindredjaxgraves
+LoL Dagger
+Dagger
+42.5 %	2 %
+
+mordekaiserwarwickluxkogmawjhin
+LoL Recurve Bow
+Recurve Bow
+43.1 %	2.7 %
+
+mordekaiserkogmawgarenashelux
+LoL Amplifying Tome
+Amplifying Tome
+45.3 %	5.6 %
+
+kindredluxgarenjhinmalzahar
+LoL Vampiric Scepter
+Vampiric Scepter
+48.3 %	3.4 %
+
+kindredmissfortunemordekaisergarenjhin
+LoL Doran's Shield
+Doran's Shield
+47.1 %	3.8 %
+
+garenkindredluxmissfortunemordekaiser
+LoL Doran's Blade
+Doran's Blade
+48.3 %	8.6 %
+
+kindredmordekaiserjhinluxgaren
+LoL Doran's Ring
+Doran's Ring
+48.3 %	5.3 %
+
+kindredxerathswainmordekaisergaren
+LoL Negatron Cloak
+Negatron Cloak
+48.6 %	1.5 %
+
+rellmissfortunekaynleonaamumu
+LoL Needlessly Large Rod
+Needlessly Large Rod
+54.1 %	5.4 %
+
+kindredmissfortunefizzaurelionsolmordekaiser
+LoL Dark Seal
+Dark Seal
+51 %	3.9 %
+
+kindredivernmordekaisermissfortunegaren
+LoL Cull
+Cull
+44.6 %	1.2 %
+
+kindredluxmordekaiserkogmawsion
+LoL Scorchclaw Pup
+Scorchclaw Pup
+29.7 %	0.6 %
+
+nocturnekindredluxyasuoneeko
+LoL Gustwalker Hatchling
+Gustwalker Hatchling
+31.2 %	1 %
+
+ivernyasuoneekoluxshaco
+LoL Mosstomper Seedling
+Mosstomper Seedling
+31.3 %	1 %
+
+luxyasuowarwickmordekaiserjarvaniv
+LoL Health Potion
+Health Potion
+43.2 %	1.6 %
+
+neekomordekaiserluxkindredjhin
+LoL Total Biscuit of Everlasting Will
+Total Biscuit of Everlasting Will
+36.9 %	0.4 %
+
+xerathneekokindredluxpantheon
+LoL Kircheis Shard
+Kircheis Shard
+47 %	1.4 %
+
+missfortunekindredmordekaisergarenjhin
+LoL Refillable Potion
+Refillable Potion
+45.5 %	6.2 %
+
+yorickkindredluxmordekaiserjhin
+LoL Corrupting Potion
+Corrupting Potion
+47.9 %	1.7 %
+
+yorickkindrednocturneillaoilux
+LoL Control Ward
+Control Ward
+47.5 %	8.3 %
+
+kindredmordekaisermissfortunegarenjhin
+LoL Shurelya's Battlesong
+Shurelya's Battlesong
+50.9 %	3.1 %
+
+kindredivernkogmawmissfortunemilio
+LoL Elixir of Iron
+Elixir of Iron
+49.4 %	0 %
+
+kaynsamirasennanautilusthresh
+LoL Elixir of Sorcery
+Elixir of Sorcery
+50.5 %	0 %
+
+kaynkhazixkaisamalphitenautilus
+LoL Elixir of Wrath
+Elixir of Wrath
+43.5 %	0 %
+
+nocturneillaoiyorickshacokindred
+LoL Minion Dematerializer
+Minion Dematerializer
+38.2 %	0.1 %
+
+mordekaiseryasuomasteryikindredsamira
+LoL Stopwatch
+Stopwatch
+54.6 %	1.6 %
+
+missfortunekindredmilioswaingraves
+LoL Broken Stopwatch
+Broken Stopwatch
+53.2 %	1.7 %
+
+miliokindrednautilusmasteryikhazix
+LoL Slightly Magical Footwear
+Slightly Magical Footwear
+37.1 %	1.1 %
+
+reksaixerathneekomissfortunemordekaiser
+LoL Perfectly Timed Stopwatch
+Perfectly Timed Stopwatch
+48.4 %	0.2 %
+
+ivernfiddlesticksillaoiluxvarus
+LoL Broken Stopwatch
+Broken Stopwatch
+42.6 %	0.6 %
+
+ivernmalzaharkindredjhinyasuo
+LoL Evenshroud
+Evenshroud
+53.6 %	2.1 %
+
+missfortunekindredmaokaizacmordekaiser
+LoL Archangel's Staff
+Archangel's Staff
+52.5 %	0.1 %
+
+sonaziggsgarenamumukayn
+LoL Manamune
+Manamune
+51.2 %	0.3 %
+
+xerathezrealfizzyorickillaoi
+LoL Berserker's Greaves
+Berserker's Greaves
+50.2 %	19.8 %
+
+mordekaisergarenmissfortuneamumujhin
+LoL Boots of Swiftness
+Boots of Swiftness
+52.2 %	5 %
+
+yorickfizzmissfortunemalzaharkindred
+LoL Chemtech Putrifier
+Chemtech Putrifier
+54 %	1 %
+
+rakanmiliosonaveigarmissfortune
+LoL Chalice of Blessing
+Chalice of Blessing
+50 %	0.6 %
+
+miliokogmawrakankindredveigar
+LoL Sorcerer's Shoes
+Sorcerer's Shoes
+51.1 %	20.2 %
+
+garenmissfortunejhinaurelionsolkindred
+LoL Lifewell Pendant
+Lifewell Pendant
+47.2 %	0.7 %
+
+kindredmissfortunegarenrellmordekaiser
+LoL Glacial Buckler
+Glacial Buckler
+49.3 %	0.7 %
+
+rellkindredleonamissfortuneamumu
+LoL Guardian Angel
+Guardian Angel
+61.4 %	1.8 %
+
+teemoveigarmiliomasteryikhazix
+LoL Infinity Edge
+Infinity Edge
+52.3 %	3.6 %
+
+mordekaiseramumugarenswainveigar
+LoL Mortal Reminder
+Mortal Reminder
+52.2 %	1 %
+
+kledmilioveigargarenteemo
+LoL Last Whisper
+Last Whisper
+49.1 %	2.7 %
+
+yoricknocturnemordekaisergarenkayn
+LoL Lord Dominik's Regards
+Lord Dominik's Regards
+54.9 %	4.5 %
+
+teemoamumumissfortuneveigarmordekaiser
+LoL Seraph's Embrace
+Seraph's Embrace
+55.7 %	2.3 %
+
+sonaaurelionsolmissfortuneamumujhin
+LoL Mejai's Soulstealer
+Mejai's Soulstealer
+75.9 %	1.8 %
+
+miliosylaskatarinaekkojhin
+LoL Muramana
+Muramana
+52.9 %	3.1 %
+
+missfortunejhinkaynmilioteemo
+LoL Phage
+Phage
+53.5 %	0.9 %
+
+kindredurgotmissfortunekaynveigar
+LoL Phantom Dancer
+Phantom Dancer
+55.3 %	1.3 %
+
+garenmordekaisermilioamumujhin
+LoL Plated Steelcaps
+Plated Steelcaps
+49.9 %	18.4 %
+
+kindredmissfortuneillaoimalphitemordekaiser
+LoL Zeke's Convergence
+Zeke's Convergence
+58.4 %	1.1 %
+
+rellmissfortunekindredsamiramordekaiser
+LoL Hearthbound Axe
+Hearthbound Axe
+44.8 %	1.1 %
+
+kogmawbelvethmordekaisermasteryitwitch
+LoL Sterak's Gage
+Sterak's Gage
+59.6 %	1.3 %
+
+missfortuneveigarhecarimamumukayn
+LoL Sheen
+Sheen
+40.4 %	1.1 %
+
+fizzleblancmordekaiserakalishaco
+LoL Spirit Visage
+Spirit Visage
+55.9 %	1.5 %
+
+drmundomissfortunemiliomordekaiserveigar
+LoL Winged Moonplate
+Winged Moonplate
+48.9 %	1.3 %
+
+rammusrellnasusmissfortuneleona
+LoL Kindlegem
+Kindlegem
+41.3 %	3.5 %
+
+swainkindredillaoimissfortunesoraka
+LoL Sunfire Aegis
+Sunfire Aegis
+54.8 %	4.5 %
+
+rammusdrmundomissfortunemordekaiserchogath
+LoL Tear of the Goddess
+Tear of the Goddess
+41.1 %	2.7 %
+
+illaoisonamalzaharswainwarwick
+LoL Black Cleaver
+Black Cleaver
+54.8 %	7.3 %
+
+kindredmissfortunemilioveigarjhin
+LoL Bloodthirster
+Bloodthirster
+58.3 %	4 %
+
+rengargravesteemoveigaramumu
+LoL Ravenous Hydra
+Ravenous Hydra
+54.7 %	3.5 %
+
+amumumissfortunemilioveigarjhin
+LoL Thornmail
+Thornmail
+54.3 %	5.6 %
+
+ornnmissfortunedrmundorellveigar
+LoL Bramble Vest
+Bramble Vest
+45.9 %	3.3 %
+
+missfortunemaokaiamumumordekaiserrell
+LoL Tiamat
+Tiamat
+51.5 %	1.5 %
+
+drmundokindredkogmawsionmasteryi
+LoL Trinity Force
+Trinity Force
+52.7 %	5.3 %
+
+missfortunejhinfizzyorickfiora
+LoL Warden's Mail
+Warden's Mail
+49.6 %	1.2 %
+
+ornnrellamumuleonamissfortune
+LoL Warmog's Armor
+Warmog's Armor
+58.8 %	0.3 %
+
+ornnveigardrmundofizzamumu
+LoL Heartsteel
+Heartsteel
+51.9 %	2.8 %
+
+missfortunejhindrmundokindredwarwick
+LoL Runaan's Hurricane
+Runaan's Hurricane
+55 %	2.1 %
+
+twitchmilioamumuapheliosfizz
+LoL Zeal
+Zeal
+47.7 %	2 %
+
+garenkindredmordekaisersennaashe
+LoL Statikk Shiv
+Statikk Shiv
+51.6 %	4.4 %
+
+mordekaiserjhinamumugarenveigar
+LoL Rabadon's Deathcap
+Rabadon's Deathcap
+59.2 %	5 %
+
+kayleaurelionsolmissfortunemilioamumu
+LoL Wit's End
+Wit's End
+56.6 %	2.4 %
+
+masteryimiliomissfortuneveigarjhin
+LoL Rapid Firecannon
+Rapid Firecannon
+56.1 %	2.8 %
+
+miliogravesamumujhingaren
+LoL Stormrazor
+Stormrazor
+51 %	6.9 %
+
+rengarfizzmordekaiserjhingaren
+LoL Lich Bane
+Lich Bane
+55.1 %	1.8 %
+
+viktormissfortunemiliofizzillaoi
+LoL Banshee's Veil
+Banshee's Veil
+55.2 %	0.8 %
+
+annieevelynnmissfortunekaynmilio
+LoL Aegis of the Legion
+Aegis of the Legion
+47.4 %	1.1 %
+
+illaoisionchogathmalphitenasus
+LoL Redemption
+Redemption
+58.9 %	0.8 %
+
+missfortuneveigarrakankhazixjanna
+LoL Fiendish Codex
+Fiendish Codex
+44.9 %	3.1 %
+
+ivernmordekaiserkindredgarenveigar
+LoL Knight's Vow
+Knight's Vow
+60 %	0.8 %
+
+missfortunegravesveigarrellsamira
+LoL Frozen Heart
+Frozen Heart
+56.1 %	2 %
+
+ornnmissfortuneamumuveigarmasteryi
+LoL Mercury's Treads
+Mercury's Treads
+51 %	12 %
+
+kindredmissfortunemordekaiserjhinswain
+LoL Aether Wisp
+Aether Wisp
+48.6 %	1.2 %
+
+lillianamimordekaiserkindredivern
+LoL Forbidden Idol
+Forbidden Idol
+49.9 %	1.2 %
+
+kindrednamijannakogmawgaren
+LoL Nashor's Tooth
+Nashor's Tooth
+52.7 %	4.1 %
+
+mordekaiseramumukaisamissfortunekayn
+LoL Rylai's Crystal Scepter
+Rylai's Crystal Scepter
+55.1 %	4.5 %
+
+missfortunegarenjhinamumulillia
+LoL Mobility Boots
+Mobility Boots
+51 %	2.2 %
+
+missfortuneivernleonamordekaiserkindred
+LoL Winter's Approach
+Winter's Approach
+57.4 %	0 %
+
+maokaiwarwickekkojinxveigar
+LoL Fimbulwinter
+Fimbulwinter
+57.3 %	0.2 %
+
+taricveigarornnmissfortunemasteryi
+LoL Executioner's Calling
+Executioner's Calling
+41.2 %	1.1 %
+
+garenyorickveigarvikindred
+LoL Guinsoo's Rageblade
+Guinsoo's Rageblade
+51.9 %	5 %
+
+masteryiamumumiliomordekaisermissfortune
+LoL Caulfield's Warhammer
+Caulfield's Warhammer
+44.8 %	5.2 %
+
+yorickgarenkindredmordekaiserillaoi
+LoL Serrated Dirk
+Serrated Dirk
+46.5 %	2.6 %
+
+jhinyorickmordekaisernocturnegaren
+LoL Void Staff
+Void Staff
+54.1 %	2.3 %
+
+missfortuneteemokaynjhinmilio
+LoL Mercurial Scimitar
+Mercurial Scimitar
+56.6 %	0.2 %
+
+yuumigravesnautilusvaynemasteryi
+LoL Quicksilver Sash
+Quicksilver Sash
+49.6 %	0.3 %
+
+kindredmiliogravesaphelioszeri
+LoL Youmuu's Ghostblade
+Youmuu's Ghostblade
+51.1 %	4.3 %
+
+mordekaisermissfortunegarenteemodraven
+LoL Randuin's Omen
+Randuin's Omen
+53.5 %	0.5 %
+
+rammusmissfortunerellmasteryimilio
+LoL Hextech Alternator
+Hextech Alternator
+45 %	2.6 %
+
+kindredgarenwarwickluxxerath
+LoL Hextech Rocketbelt
+Hextech Rocketbelt
+50.3 %	3.6 %
+
+missfortunegarenjhinmordekaisermilio
+LoL Blade of The Ruined King
+Blade of The Ruined King
+52.3 %	7.3 %
+
+mordekaisermissfortunekogmawtrundleveigar
+LoL Hexdrinker
+Hexdrinker
+48.6 %	0.7 %
+
+fioramissfortunejhinmiliovi
+LoL Maw of Malmortius
+Maw of Malmortius
+55.3 %	1.8 %
+
+missfortunemilioveigarteemojarvaniv
+LoL Zhonya's Hourglass
+Zhonya's Hourglass
+53.6 %	7.9 %
+
+missfortunekaynlilliaamumufizz
+LoL Ionian Boots of Lucidity
+Ionian Boots of Lucidity
+51.3 %	15.6 %
+
+ivernsonakindredfizzjanna
+LoL Spear Of Shojin
+Spear Of Shojin
+60.6 %	0.8 %
+
+teemofioramiliomissfortunehecarim
+LoL Morellonomicon
+Morellonomicon
+50.9 %	1.9 %
+
+teemomissfortunemasteryikaynlillia
+LoL Umbral Glaive
+Umbral Glaive
+50.7 %	1 %
+
+veigarmordekaisermissfortunefizzjhin
+LoL Hullbreaker
+Hullbreaker
+57.5 %	1.7 %
+
+fioramissfortuneveigaramumuillaoi
+LoL Locket of the Iron Solari
+Locket of the Iron Solari
+51.3 %	1.8 %
+
+taricmissfortunekindredmordekaiserveigar
+LoL Seeker's Armguard
+Seeker's Armguard
+46.2 %	1.8 %
+
+mordekaiserkindredmissfortunewarwickgaren
+LoL Gargoyle Stoneplate
+Gargoyle Stoneplate
+57.7 %	0.7 %
+
+rammusdrmundomissfortunejhinmilio
+LoL Spectre's Cowl
+Spectre's Cowl
+51.6 %	0.6 %
+
+mordekaisermissfortuneswainmaokaimalzahar
+LoL Mikael's Blessing
+Mikael's Blessing
+55 %	0.5 %
+
+sorakamiliojannakogmawtwitch
+LoL Your Cut
+Your Cut
+69.9 %	0 %
+
+malzaharveigarkindredsionashe
+LoL Ardent Censer
+Ardent Censer
+57.6 %	1.7 %
+
+miliomalphitekindredjannasona
+LoL Essence Reaver
+Essence Reaver
+51.3 %	2.7 %
+
+vijhinmissfortunemalzaharmordekaiser
+LoL Dead Man's Plate
+Dead Man's Plate
+56.5 %	1.6 %
+
+missfortuneveigarjhinmilionasus
+LoL Titanic Hydra
+Titanic Hydra
+57.9 %	1.9 %
+
+drmundomissfortunekindredveigarjhin
+LoL Crystalline Bracer
+Crystalline Bracer
+46.9 %	0.4 %
+
+leonasorakanautilusmissfortunerell
+LoL Lost Chapter
+Lost Chapter
+33.3 %	0.8 %
+
+heimerdingerleblancyasuowarwickmordekaiser
+LoL Catalyst of Aeons
+Catalyst of Aeons
+30.5 %	0 %
+
+taricwarwickyasuoswainsamira
+LoL Edge of Night
+Edge of Night
+56.3 %	1.8 %
+
+missfortuneteemoreksaimilioveigar
+LoL Spellthief's Edge
+Spellthief's Edge
+37.8 %	0.2 %
+
+xerathneekoswainshacomorgana
+LoL Frostfang
+Frostfang
+34 %	0.9 %
+
+yasuotwitchwarwickneekokindred
+LoL Shard of True Ice
+Shard of True Ice
+51.8 %	10.2 %
+
+miliosonagarenjhinmordekaiser
+LoL Steel Shoulderguards
+Steel Shoulderguards
+38.2 %	0 %
+
+mordekaiserfizztristanakindredsamira
+LoL Runesteel Spaulders
+Runesteel Spaulders
+47.7 %	0.4 %
+
+kindredvarusmordekaiserwarwicksion
+LoL Pauldrons of Whiterock
+Pauldrons of Whiterock
+50.7 %	1.5 %
+
+missfortunemordekaiserveigarleonakindred
+LoL Relic Shield
+Relic Shield
+36.3 %	0.1 %
+
+kindredsamiranautilusyasuoakali
+LoL Targon's Buckler
+Targon's Buckler
+47 %	1 %
+
+kindredvarusyasuomordekaiserblitzcrank
+LoL Bulwark of the Mountain
+Bulwark of the Mountain
+52.2 %	4 %
+
+missfortunerellkindredmordekaisermaokai
+LoL Spectral Sickle
+Spectral Sickle
+39 %	0 %
+
+pantheonkaynjhinwarwickchogath
+LoL Harrowing Crescent
+Harrowing Crescent
+28.1 %	0.1 %
+
+pykepantheonshacowarwickakali
+LoL Black Mist Scythe
+Black Mist Scythe
+50.6 %	1.2 %
+
+amumufizzmordekaiserjhinveigar
+LoL Oblivion Orb
+Oblivion Orb
+45.3 %	2.5 %
+
+miliomalzahargarenzyramissfortune
+LoL Imperial Mandate
+Imperial Mandate
+55.9 %	1.4 %
+
+jannarakanrenataseraphinemordekaiser
+LoL Force of Nature
+Force of Nature
+54 %	2.2 %
+
+missfortunerellveigarjhinudyr
+LoL Horizon Focus
+Horizon Focus
+55 %	0.9 %
+
+jhinmissfortuneteemogarengraves
+LoL Cosmic Drive
+Cosmic Drive
+56.3 %	1.1 %
+
+ivernlilliamissfortunegwenmilio
+LoL Blighting Jewel
+Blighting Jewel
+49.7 %	1 %
+
+anniekaynmissfortunegarenmilio
+LoL Verdant Barrier
+Verdant Barrier
+48.8 %	0.3 %
+
+veigaranniekayngravestwitch
+LoL Riftmaker
+Riftmaker
+53.3 %	1.7 %
+
+kaylemissfortuneamumuteemokindred
+LoL Leeching Leer
+Leeching Leer
+38.7 %	0.1 %
+
+varusswainyasuoteemolux
+LoL Night Harvester
+Night Harvester
+50.7 %	1.8 %
+
+ivernmissfortunegarenshyvanajhin
+LoL Demonic Embrace
+Demonic Embrace
+55.5 %	4.1 %
+
+aurelionsolmordekaiserkaynmissfortuneswain
+LoL Watchful Wardstone
+Watchful Wardstone
+65.8 %	0.2 %
+
+rellmiliokhazixgravesrakan
+LoL Bandleglass Mirror
+Bandleglass Mirror
+39.6 %	0.4 %
+
+seraphineivernjannayasuomordekaiser
+LoL Vigilant Wardstone
+Vigilant Wardstone
+64.1 %	0.1 %
+
+sonarellkaisamordekaisernautilus
+LoL Crown of the Shattered Queen
+Crown of the Shattered Queen
+51 %	0.4 %
+
+kindredjhingarentwitchkayn
+LoL Shadowflame
+Shadowflame
+53.3 %	6.4 %
+
+anniemissfortunekindredmiliogaren
+LoL Ironspike Whip
+Ironspike Whip
+38.1 %	0.1 %
+
+ireliasettneekokindredlux
+LoL Silvermere Dawn
+Silvermere Dawn
+54.6 %	0.1 %
+
+teemomissfortunemasteryihecarimjhin
+LoL Death's Dance
+Death's Dance
+56.7 %	3.8 %
+
+teemomiliomasteryimissfortunehecarim
+LoL Chempunk Chainsword
+Chempunk Chainsword
+51.8 %	0.5 %
+
+veigarmiliomissfortuneteemohecarim
+LoL Staff of Flowing Water
+Staff of Flowing Water
+58.2 %	1 %
+
+kogmawmiliotwitchsonakayn
+LoL Moonstone Renewer
+Moonstone Renewer
+50.3 %	0.8 %
+
+mordekaisergarenivernveigarsoraka
+LoL Echoes of Helia
+Echoes of Helia
+51.1 %	2.4 %
+
+sonaanniemordekaiserjannagaren
+LoL Goredrinker
+Goredrinker
+50.5 %	2.1 %
+
+ireliasettmordekaisermissfortunemalzahar
+LoL Stridebreaker
+Stridebreaker
+52.3 %	2.5 %
+
+missfortunexerathfizzjhinsett
+LoL Divine Sunderer
+Divine Sunderer
+50.5 %	3.9 %
+
+missfortunefizztrundlejhinwarwick
+LoL Liandry's Anguish
+Liandry's Anguish
+51.8 %	7.7 %
+
+garenjhinamumumissfortunewarwick
+LoL Luden's Tempest
+Luden's Tempest
+51 %	7.3 %
+
+jhingarenmissfortunenocturnefizz
+LoL Everfrost
+Everfrost
+49.1 %	2 %
+
+kindredmissfortunegarenmilioblitzcrank
+LoL Rod of Ages
+Rod of Ages
+51.2 %	1.6 %
+
+singedmissfortuneamumugarenmordekaiser
+LoL Bami's Cinder
+Bami's Cinder
+47.7 %	0.9 %
+
+mordekaiseramumumaokaiudyrgaren
+LoL Iceborn Gauntlet
+Iceborn Gauntlet
+51.5 %	2.3 %
+
+missfortunekindredillaoifizzmilio
+LoL Turbo Chemtank
+Turbo Chemtank
+57.9 %	0.1 %
+
+leonamissfortunerammuspantheonakali
+LoL Jak'Sho, The Protean
+Jak'Sho, The Protean
+52.6 %	3.2 %
+
+missfortunerammusjhinmordekaiserveigar
+LoL Radiant Virtue
+Radiant Virtue
+53.1 %	0.9 %
+
+singedurgotmissfortuneamumuswain
+LoL Noonquiver
+Noonquiver
+47.2 %	1.2 %
+
+sennamordekaiserezrealtwitchmissfortune
+LoL Galeforce
+Galeforce
+52.1 %	6.1 %
+
+mordekaiserjhinamumunilahmilio
+LoL Kraken Slayer
+Kraken Slayer
+51.9 %	6.1 %
+
+kaylejhinmordekaisermasteryiamumu
+LoL Immortal Shieldbow
+Immortal Shieldbow
+54.6 %	1.9 %
+
+nilahmissfortuneamumuteemoveigar
+LoL Navori Quickblades
+Navori Quickblades
+51.8 %	1.9 %
+
+amumumordekaisergarensivirkindred
+LoL The Collector
+The Collector
+55.9 %	5.3 %
+
+amumuvinilahjhinteemo
+LoL Rageknife
+Rageknife
+37.5 %	0.5 %
+
+belvethakshanwarwickmordekaiserkindred
+LoL Duskblade of Draktharr
+Duskblade of Draktharr
+51.3 %	4.2 %
+
+missfortunemordekaiserillaoiyorickhecarim
+LoL Eclipse
+Eclipse
+51 %	4.3 %
+
+kledmordekaiseryorickrivenjhin
+LoL Prowler's Claw
+Prowler's Claw
+53.1 %	2.1 %
+
+veigarmordekaisermissfortuneteemomilio
+LoL Serylda's Grudge
+Serylda's Grudge
+56.7 %	3.2 %
+
+missfortuneteemomiliojhinamumu
+LoL Serpent's Fang
+Serpent's Fang
+51.9 %	0.3 %
+
+milioveigarmissfortuneteemomalphite
+LoL Axiom Arc
+Axiom Arc
+56.2 %	0.7 %
+
+teemomordekaisermissfortunekaynjhin
+LoL Equinox
+Equinox
+66 %	0 %
+
+zacluciankaynmasteryized
+LoL Caesura
+Caesura
+63.4 %	0 %
+
+ezrealjhinkayntwitchashe
+LoL Leviathan
+Leviathan
+55.6 %	0 %
+
+malzaharwarwicksennamissfortunemasteryi
+LoL The Unspoken Parasite
+The Unspoken Parasite
+55.7 %	0.3 %
+
+amumuwarwickkaynsennajhin
+LoL Primordial Dawn
+Primordial Dawn
+58.8 %	0 %
+
+maokaimiliozacyasuomasteryi
+LoL Infinite Convergence
+Infinite Convergence
+63.7 %	0 %
+
+nautilusnocturnejhingraveskayn
+LoL Youmuu's Wake
+Youmuu's Wake
+64.3 %	0 %
+
+malzaharmiliofizzdraventalon
+LoL Seething Sorrow
+Seething Sorrow
+61.8 %	0.1 %
+
+jhinmasteryimissfortunezedkayn
+LoL Edge of Finality
+Edge of Finality
+62 %	0 %
+
+aurelionsoltwitchswainsennamasteryi
+LoL Flicker
+Flicker
+61.5 %	0 %
+
+nautilusmasteryiblitzcrankkaynakali
+LoL Cry of the Shrieking City
+Cry of the Shrieking City
+64.9 %	0 %
+
+anniekaynmasteryijannajhin
+LoL Anathema's Chains
+Anathema's Chains
+53.7 %	0.2 %
+
+ornnrellamumumissfortunenautilus
+LoL Abyssal Mask
+Abyssal Mask
+57.9 %	0.8 %
+
+ornnrellmissfortunezaczed
